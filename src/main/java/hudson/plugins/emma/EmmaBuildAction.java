@@ -47,14 +47,29 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
      */
     private final EmmaHealthReportThresholds thresholds;
 
-    public EmmaBuildAction(AbstractBuild<?,?> owner, Rule rule, Ratio classCoverage, Ratio methodCoverage, Ratio blockCoverage, Ratio lineCoverage, Ratio conditionCoverage, EmmaHealthReportThresholds thresholds) {
+    public EmmaBuildAction(
+            AbstractBuild<?,?> owner, 
+            Rule rule, 
+            Ratio classCoverage, 
+            Ratio methodCoverage, 
+            Ratio blockCoverage, 
+            Ratio lineCoverage, 
+            Ratio decisionCoverage, 
+            Ratio conditionCoverage, 
+            Ratio mcdcCoverage, 
+            Ratio mccCoverage, 
+            EmmaHealthReportThresholds thresholds
+            ) {
         this.owner = owner;
         this.rule = rule;
         this.clazz = classCoverage;
         this.method = methodCoverage;
         this.block = blockCoverage;
         this.line = lineCoverage;
+        this.decision = decisionCoverage;
         this.condition = conditionCoverage;
+        this.mcdc = mcdcCoverage;
+        this.mcc = mccCoverage;
         this.thresholds = thresholds;
     }
 
@@ -116,6 +131,14 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
             score = updateHealthScore(score, thresholds.getMinLine(),
                                       percent, thresholds.getMaxLine());
         }
+        if (decision != null && thresholds.getMaxDecision() > 0) {
+            percent = decision.getPercentage(getTestNotMandatory());
+            if (percent < thresholds.getMaxDecision()) {
+                reports.add(Messages._BuildAction_Decision(decision, percent));
+            }
+            score = updateHealthScore(score, thresholds.getMinDecision(),
+                                      percent, thresholds.getMaxDecision());
+        }
         if (condition != null && thresholds.getMaxCondition() > 0) {
             percent = condition.getPercentage(getTestNotMandatory());
             if (percent < thresholds.getMaxCondition()) {
@@ -123,6 +146,22 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
             }
             score = updateHealthScore(score, thresholds.getMinCondition(),
                                       percent, thresholds.getMaxCondition());
+        }
+        if (mcdc != null && thresholds.getMaxMcDc() > 0) {
+            percent = mcdc.getPercentage(getTestNotMandatory());
+            if (percent < thresholds.getMaxMcDc()) {
+                reports.add(Messages._BuildAction_Mcdc(mcdc, percent));
+            }
+            score = updateHealthScore(score, thresholds.getMinMcDc(),
+                                      percent, thresholds.getMaxMcDc());
+        }
+        if (mcc != null && thresholds.getMaxMcc() > 0) {
+            percent = mcc.getPercentage(getTestNotMandatory());
+            if (percent < thresholds.getMaxMcc()) {
+                reports.add(Messages._BuildAction_Mcc(mcc, percent));
+            }
+            score = updateHealthScore(score, thresholds.getMinMcc(),
+                                      percent, thresholds.getMaxMcc());
         }
         if (score == 100) {
             reports.add(Messages._BuildAction_Perfect());
@@ -246,7 +285,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
             }
         }
            
-        return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],thresholds);
+        return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
     }
 
     public static EmmaBuildAction load(AbstractBuild<?,?> owner, Rule rule, EmmaHealthReportThresholds thresholds, InputStream... streams) throws IOException, XmlPullParserException {
@@ -254,7 +293,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
         for (InputStream in: streams) {
           ratios = loadRatios(in, ratios);
         }
-        return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],thresholds);
+        return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
     }
 
     private static Ratio[] loadRatios(InputStream in, Ratio[] r) throws IOException, XmlPullParserException {
@@ -273,8 +312,8 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
             break;
         }
 
-        if (r == null || r.length < 5) 
-            r = new Ratio[5];
+        if (r == null || r.length < 8) 
+            r = new Ratio[8];
         
         // head for the first <coverage> tag.
         for( int i=0; i<r.length; i++ ) {
@@ -294,8 +333,14 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
                 index = 2;
             else if ( t.equals("line, %") )
                 index = 3;
-            else if ( t.equals("condition, %") )
+            else if ( t.equals("decision, %") )
                 index = 4;
+            else if ( t.equals("condition, %") )
+                index = 5;
+            else if ( t.equals("mcdc, %") )
+                index = 6;
+            else if ( t.equals("mcc, %") )
+                index = 7;
             else
                 continue;
                 

@@ -113,38 +113,51 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
     }
     
     @Override
-    public String getFirstDataColumnDescriptor()
+    public String getClassDataColumnDescriptor()
     {
-        //return getLastAction().getFirstDataColumnDescriptor();
-        return action.getFirstDataColumnDescriptor();
+        return action.getClassDataColumnDescriptor();
     }
 
     @Override
-    public String getSecondDataColumnDescriptor()
+    public String getMethodDataColumnDescriptor()
     {
-        //return getLastAction().getFirstDataColumnDescriptor();
-        return action.getSecondDataColumnDescriptor();
+        return action.getMethodDataColumnDescriptor();
     }
 
     @Override
-    public String getThirdDataColumnDescriptor()
+    public String getBlockDataColumnDescriptor()
     {
-        //return getLastAction().getFirstDataColumnDescriptor();
-        return action.getThirdDataColumnDescriptor();
+        return action.getBlockDataColumnDescriptor();
     }
 
     @Override
-    public String getFourthDataColumnDescriptor()
+    public String getLineDataColumnDescriptor()
     {
-        //return getLastAction().getFirstDataColumnDescriptor();
-        return action.getFourthDataColumnDescriptor();
+        return action.getLineDataColumnDescriptor();
     }
 
     @Override
-    public String getFifthDataColumnDescriptor()
+    public String getDecisionDataColumnDescriptor()
     {
-        //return getLastAction().getFirstDataColumnDescriptor();
-        return action.getFifthDataColumnDescriptor();
+        return action.getDecisionDataColumnDescriptor();
+    }
+
+    @Override
+    public String getConditionDataColumnDescriptor()
+    {
+        return action.getConditionDataColumnDescriptor();
+    }
+
+    @Override
+    public String getMcDcDataColumnDescriptor()
+    {
+        return action.getMcDcDataColumnDescriptor();
+    }
+
+    @Override
+    public String getMccDataColumnDescriptor()
+    {
+        return action.getMccDataColumnDescriptor();
     }
 //
 ////////////////////////////////////////////////////////////////////////////////

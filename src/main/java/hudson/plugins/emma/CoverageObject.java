@@ -42,11 +42,14 @@ import java.util.Calendar;
 @ExportedBean
 public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends AdvancedSettings {
 
-	Ratio clazz = new Ratio();
+    Ratio clazz = new Ratio();
     Ratio method = new Ratio();
     Ratio block = new Ratio();
     Ratio line = new Ratio();
+    Ratio decision = new Ratio();
     Ratio condition = new Ratio();
+    Ratio mcdc = new Ratio();
+    Ratio mcc = new Ratio();
     
     private volatile boolean failed = false;
 
@@ -86,11 +89,35 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
     }
 
     /**
-     * Line coverage. Can be null if this information is not collected.
+     * Decision coverage. Can be null if this information is not collected.
+     */
+    @Exported(inline=true)
+    public Ratio getDecisionCoverage() {
+        return decision;
+    }
+
+    /**
+     * Condition coverage. Can be null if this information is not collected.
      */
     @Exported(inline=true)
     public Ratio getConditionCoverage() {
         return condition;
+    }
+
+    /**
+     * MC/DC coverage. Can be null if this information is not collected.
+     */
+    @Exported(inline=true)
+    public Ratio getMcDcCoverage() {
+        return mcdc;
+    }
+
+    /**
+     * MCC coverage. Can be null if this information is not collected.
+     */
+    @Exported(inline=true)
+    public Ratio getMccCoverage() {
+        return mcc;
     }
 
     /**
@@ -117,8 +144,23 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
         printRatioCell(isFailed(), method, buf, getTestNotMandatory());
         printRatioCell(isFailed(), block, buf, getTestNotMandatory());
         printRatioCell(isFailed(), line, buf, getTestNotMandatory());
+        printRatioCell(isFailed(), decision, buf, getTestNotMandatory());
         printRatioCell(isFailed(), condition, buf, getTestNotMandatory());
+        printRatioCell(isFailed(), mcdc, buf, getTestNotMandatory());
+        printRatioCell(isFailed(), mcc, buf, getTestNotMandatory());
         return buf.toString();
+    }
+
+    public boolean hasMcDcCoverage() {
+        return mcdc.isInitialized();
+    }
+
+    public boolean hasMccCoverage() {
+        return mcc.isInitialized();
+    }
+
+    public boolean hasDecisionCoverage() {
+        return decision.isInitialized();
     }
 
     public boolean hasConditionCoverage() {
@@ -188,17 +230,32 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
 
                 for (CoverageObject<SELF> a = obj; a != null; a = a.getPreviousResult()) {
                     NumberOnlyBuildLabel label = new NumberOnlyBuildLabel(a.getBuild());
-                    dsb.add(a.clazz.getPercentageFloat(getTestNotMandatory()), a.getFirstDataColumnDescriptor(), label);
-                    dsb.add(a.method.getPercentageFloat(getTestNotMandatory()), a.getSecondDataColumnDescriptor(), label);
-                    dsb.add(a.block.getPercentageFloat(getTestNotMandatory()), a.getThirdDataColumnDescriptor(), label);
+                    dsb.add(a.clazz.getPercentageFloat(getTestNotMandatory()), a.getClassDataColumnDescriptor(), label);
+                    dsb.add(a.method.getPercentageFloat(getTestNotMandatory()), a.getMethodDataColumnDescriptor(), label);
+                    dsb.add(a.block.getPercentageFloat(getTestNotMandatory()), a.getBlockDataColumnDescriptor(), label);
                     if (a.line != null) {
                         if (a.hasLineCoverage()){
-                            dsb.add(a.line.getPercentageFloat(getTestNotMandatory()), a.getFourthDataColumnDescriptor(), label);
+                            dsb.add(a.line.getPercentageFloat(getTestNotMandatory()), a.getLineDataColumnDescriptor(), label);
+                        }
+                    }
+                    if (a.decision != null) {
+                        if (a.hasDecisionCoverage()){
+                            dsb.add(a.decision.getPercentageFloat(getTestNotMandatory()), a.getDecisionDataColumnDescriptor(), label);
                         }
                     }
                     if (a.condition != null) {
                         if (a.hasConditionCoverage()){
-                            dsb.add(a.condition.getPercentageFloat(getTestNotMandatory()), a.getFifthDataColumnDescriptor(), label);
+                            dsb.add(a.condition.getPercentageFloat(getTestNotMandatory()), a.getConditionDataColumnDescriptor(), label);
+                        }
+                    }
+                    if (a.mcdc != null) {
+                        if (a.hasMcDcCoverage()){
+                            dsb.add(a.mcdc.getPercentageFloat(getTestNotMandatory()), a.getMcDcDataColumnDescriptor(), label);
+                        }
+                    }
+                    if (a.mcc != null) {
+                        if (a.hasMccCoverage()){
+                            dsb.add(a.mcc.getPercentageFloat(getTestNotMandatory()), a.getMccDataColumnDescriptor(), label);
                         }
                     }
                 }

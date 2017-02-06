@@ -183,21 +183,21 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
         HtmlForm f = p.getFormByName("config");
 
         f.getInputByName("hudson-plugins-emma-EmmaPublisher").setChecked(true);
-        f.getInputByName("emmaAdvancedSettings.firstDataColumnDescriptor").setValueAttribute("test_class");
-        f.getInputByName("emmaAdvancedSettings.secondDataColumnDescriptor").setValueAttribute("test_method");
-        f.getInputByName("emmaAdvancedSettings.thirdDataColumnDescriptor").setValueAttribute("test_block");
-        f.getInputByName("emmaAdvancedSettings.fourthDataColumnDescriptor").setValueAttribute("test_line");
-        f.getInputByName("emmaAdvancedSettings.fifthDataColumnDescriptor").setValueAttribute("test_condition");
+        f.getInputByName("emmaAdvancedSettings.classDataColumnDescriptor").setValueAttribute("test_class");
+        f.getInputByName("emmaAdvancedSettings.methodDataColumnDescriptor").setValueAttribute("test_method");
+        f.getInputByName("emmaAdvancedSettings.blockDataColumnDescriptor").setValueAttribute("test_block");
+        f.getInputByName("emmaAdvancedSettings.lineDataColumnDescriptor").setValueAttribute("test_line");
+        f.getInputByName("emmaAdvancedSettings.conditionDataColumnDescriptor").setValueAttribute("test_condition");
         submit(f);
 
         EmmaPublisher publisher = (EmmaPublisher) fp.getPublisher(EmmaPublisher.DESCRIPTOR);
         AdvancedSettings advancedSettings = publisher.advancedSettings;
         
-        assertEquals("test_class", advancedSettings.getFirstDataColumnDescriptor());
-        assertEquals("test_class", advancedSettings.getFirstDataColumnDescriptor());
-        assertEquals("test_method", advancedSettings.getSecondDataColumnDescriptor());
-        assertEquals("test_block", advancedSettings.getThirdDataColumnDescriptor());
-        assertEquals("test_line", advancedSettings.getFourthDataColumnDescriptor());
-        assertEquals("test_condition", advancedSettings.getFifthDataColumnDescriptor());
+        assertEquals("test_class", advancedSettings.getClassDataColumnDescriptor());
+        assertEquals("test_class", advancedSettings.getClassDataColumnDescriptor());
+        assertEquals("test_method", advancedSettings.getMethodDataColumnDescriptor());
+        assertEquals("test_block", advancedSettings.getBlockDataColumnDescriptor());
+        assertEquals("test_line", advancedSettings.getLineDataColumnDescriptor());
+        assertEquals("test_condition", advancedSettings.getConditionDataColumnDescriptor());
     }
 }

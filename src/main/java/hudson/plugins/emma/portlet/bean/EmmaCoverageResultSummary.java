@@ -67,9 +67,24 @@ public class EmmaCoverageResultSummary {
   private float classCoverage;
 
   /**
+   * Decision coverage percentage.
+   */
+  private float decisionCoverage;
+
+  /**
    * Condition coverage percentage.
    */
   private float conditionCoverage;
+
+  /**
+   * MC/DC coverage percentage.
+   */
+  private float mcdcCoverage;
+
+  /**
+   * MCC coverage percentage.
+   */
+  private float mccCoverage;
 
   private List<EmmaCoverageResultSummary> coverageResults = new ArrayList<EmmaCoverageResultSummary>();
 
@@ -93,14 +108,26 @@ public class EmmaCoverageResultSummary {
    * @param classCoverage
    *          coverage percentage
    */
-  public EmmaCoverageResultSummary(Job job, float blockCoverage, float lineCoverage, float methodCoverage,
-    float classCoverage, float conditionCoverage) {
+  public EmmaCoverageResultSummary(
+          Job job,
+          float blockCoverage,
+          float lineCoverage,
+          float methodCoverage,
+          float classCoverage,
+          float decisionCoverage,
+          float conditionCoverage,
+          float mcdcCoverage,
+          float mccCoverage
+  ) {
     this.job = job;
     this.blockCoverage = blockCoverage;
     this.lineCoverage = lineCoverage;
     this.methodCoverage = methodCoverage;
     this.classCoverage = classCoverage;
+    this.decisionCoverage = decisionCoverage;
     this.conditionCoverage = conditionCoverage;
+    this.mcdcCoverage = mcdcCoverage;
+    this.mccCoverage = mccCoverage;
   }
 
   /**
@@ -117,7 +144,10 @@ public class EmmaCoverageResultSummary {
     this.setLineCoverage(this.getLineCoverage() + coverageResult.getLineCoverage());
     this.setMethodCoverage(this.getMethodCoverage() + coverageResult.getMethodCoverage());
     this.setClassCoverage(this.getClassCoverage() + coverageResult.getClassCoverage());
+    this.setDecisionCoverage(this.getDecisionCoverage() + coverageResult.getDecisionCoverage());
     this.setConditionCoverage(this.getConditionCoverage() + coverageResult.getConditionCoverage());
+    this.setMcDcCoverage(this.getMcDcCoverage() + coverageResult.getMcDcCoverage());
+    this.setMccCoverage(this.getMccCoverage() + coverageResult.getMccCoverage());
 
     getCoverageResults().add(coverageResult);
 
@@ -179,6 +209,21 @@ public class EmmaCoverageResultSummary {
   }
 
   /**
+   * Getter of the total of decision coverage.
+   *
+   * @return float the total of method coverage.
+   */
+  public float getTotalDecisionCoverage() {
+    if (this.getCoverageResults().size() <= 0) {
+      return 0.0f;
+    } else {
+      float total = this.getDecisionCoverage() / this.getCoverageResults().size();
+      total = Utils.roundFLoat(1, BigDecimal.ROUND_HALF_EVEN, total);
+      return total;
+    }
+  }
+
+  /**
    * Getter of the total of condition coverage.
    *
    * @return float the total of method coverage.
@@ -190,6 +235,36 @@ public class EmmaCoverageResultSummary {
       float totalCondition = this.getConditionCoverage() / this.getCoverageResults().size();
       totalCondition = Utils.roundFLoat(1, BigDecimal.ROUND_HALF_EVEN, totalCondition);
       return totalCondition;
+    }
+  }
+
+  /**
+   * Getter of the total of MC/DC coverage.
+   *
+   * @return float the total of method coverage.
+   */
+  public float getTotalMccCoverage() {
+    if (this.getCoverageResults().size() <= 0) {
+      return 0.0f;
+    } else {
+      float total = this.getMccCoverage() / this.getCoverageResults().size();
+      total = Utils.roundFLoat(1, BigDecimal.ROUND_HALF_EVEN, total);
+      return total;
+    }
+  }
+
+  /**
+   * Getter of the total of MC/DC coverage.
+   *
+   * @return float the total of method coverage.
+   */
+  public float getTotalMcDcCoverage() {
+    if (this.getCoverageResults().size() <= 0) {
+      return 0.0f;
+    } else {
+      float total = this.getMcDcCoverage() / this.getCoverageResults().size();
+      total = Utils.roundFLoat(1, BigDecimal.ROUND_HALF_EVEN, total);
+      return total;
     }
   }
 
@@ -215,10 +290,31 @@ public class EmmaCoverageResultSummary {
   }
 
   /**
+   * @return the decisionCoverage
+   */
+  public float getDecisionCoverage() {
+    return decisionCoverage;
+  }
+
+  /**
    * @return the conditionCoverage
    */
   public float getConditionCoverage() {
     return conditionCoverage;
+  }
+
+  /**
+   * @return the mcdcCoverage
+   */
+  public float getMcDcCoverage() {
+    return mcdcCoverage;
+  }
+
+  /**
+   * @return the mccCoverage
+   */
+  public float getMccCoverage() {
+    return mccCoverage;
   }
 
   /**
@@ -269,11 +365,35 @@ public class EmmaCoverageResultSummary {
 
 
   /**
+   * @param decisionCoverage
+   *          the decisionCoverage to set
+   */
+  public void setDecisionCoverage(float decisionCoverage) {
+    this.decisionCoverage = decisionCoverage;
+  }
+
+  /**
    * @param conditionCoverage
    *          the conditionCoverage to set
    */
   public void setConditionCoverage(float conditionCoverage) {
     this.conditionCoverage = conditionCoverage;
+  }
+
+  /**
+   * @param mcdcCoverage
+   *          the mcdcCoverage to set
+   */
+  public void setMcDcCoverage(float mcdcCoverage) {
+    this.mcdcCoverage = mcdcCoverage;
+  }
+
+  /**
+   * @param mccCoverage
+   *          the mccCoverage to set
+   */
+  public void setMccCoverage(float mccCoverage) {
+    this.mccCoverage = mccCoverage;
   }
 
   /**

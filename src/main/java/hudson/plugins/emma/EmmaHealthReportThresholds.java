@@ -19,11 +19,26 @@ public class EmmaHealthReportThresholds implements Serializable {
     private int maxLine;
     private int minCondition;
     private int maxCondition;
+    private int minDecision;
+    private int maxDecision;
+    private int minMcc;
+    private int maxMcc;
+    private int minMcDc;
+    private int maxMcDc;
 
     public EmmaHealthReportThresholds() {
     }
 
-    public EmmaHealthReportThresholds(int minClass, int maxClass, int minMethod, int maxMethod, int minBlock, int maxBlock, int minLine, int maxLine, int minCondition, int maxCondition) {
+    public EmmaHealthReportThresholds(
+            int minClass, int maxClass, 
+            int minMethod, int maxMethod, 
+            int minBlock, int maxBlock, 
+            int minLine, int maxLine, 
+            int minDecision, int maxDecision,
+            int minCondition, int maxCondition,
+            int minMcDc, int maxMcDc,
+            int minMcc, int maxMcc
+            ) {
         this.minClass = minClass;
         this.maxClass = maxClass;
         this.minMethod = minMethod;
@@ -32,8 +47,14 @@ public class EmmaHealthReportThresholds implements Serializable {
         this.maxBlock = maxBlock;
         this.minLine = minLine;
         this.maxLine = maxLine;
+        this.minDecision = minDecision;
+        this.maxDecision = maxDecision;
         this.minCondition = minCondition;
         this.maxCondition = maxCondition;
+        this.minMcDc = minMcDc;
+        this.maxMcDc = maxMcDc;
+        this.minMcc = minMcc;
+        this.maxMcc = maxMcc;
         ensureValid();
     }
 
@@ -54,6 +75,12 @@ public class EmmaHealthReportThresholds implements Serializable {
         minLine = applyRange(0, minLine, maxLine);
         maxCondition = applyRange(0, maxCondition, 100);
         minCondition = applyRange(0, minCondition, maxCondition);
+        maxDecision = applyRange(0, maxDecision, 100);
+        minDecision = applyRange(0, minDecision, maxDecision);
+        maxMcc = applyRange(0, maxMcc, 100);
+        minMcc = applyRange(0, minMcc, maxMcc);
+        maxMcDc = applyRange(0, maxMcDc, 100);
+        minMcDc = applyRange(0, minMcDc, maxMcDc);
     }
 
     public int getMinClass() {
@@ -134,6 +161,55 @@ public class EmmaHealthReportThresholds implements Serializable {
 
     public int getMaxCondition() {
         return maxCondition;
+    }
+
+    
+    public void setMinDecision(int v) {
+        this.minDecision = v;
+    }
+
+    public int getMinDecision() {
+        return minDecision;
+    }
+
+    public void setMaxDecision(int v) {
+        this.maxDecision = v;
+    }
+
+    public int getMaxDecision() {
+        return maxDecision;
+    }
+
+    public void setMinMcDc(int v) {
+        this.minMcDc = v;
+    }
+
+    public int getMinMcDc() {
+        return minMcDc;
+    }
+
+    public void setMaxMcDc(int v) {
+        this.maxMcDc = v;
+    }
+
+    public int getMaxMcDc() {
+        return maxMcDc;
+    }
+
+    public void setMinMcc(int v) {
+        this.minMcc = v;
+    }
+
+    public int getMinMcc() {
+        return minMcc;
+    }
+
+    public void setMaxMcc(int v) {
+        this.maxMcc = v;
+    }
+
+    public int getMaxMcc() {
+        return maxMcc;
     }
 
 }

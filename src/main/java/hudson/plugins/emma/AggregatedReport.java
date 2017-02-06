@@ -68,9 +68,37 @@ public abstract class AggregatedReport<PARENT extends AggregatedReport<?,PARENT,
     }
 
 
+    public boolean hasChildrenDecisionCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasDecisionCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+
     public boolean hasChildrenConditionCoverage() {
     	for (CHILD child : getChildren().values()){
     		if (child.hasConditionCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+    public boolean hasChildrenMcDcCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasMcDcCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+    public boolean hasChildrenMccCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasMccCoverage()) {
     			return true;
     		}
     	}

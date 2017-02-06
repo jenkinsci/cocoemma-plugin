@@ -84,65 +84,104 @@ public abstract class AbstractReport<
     }
     
     @Override
-    public String getFirstDataColumnDescriptor()
+    public String getClassDataColumnDescriptor()
     {
         String ret_val = "";
         PARENT p = getParent();
         
         if(p != null){
-            ret_val = p.getFirstDataColumnDescriptor();
+            ret_val = p.getClassDataColumnDescriptor();
         }
         
         return ret_val;
     }
     
     @Override
-    public String getSecondDataColumnDescriptor()
+    public String getMethodDataColumnDescriptor()
     {
         String ret_val = "";
         PARENT p = getParent();
         
         if(p != null){
-            ret_val = p.getSecondDataColumnDescriptor();
+            ret_val = p.getMethodDataColumnDescriptor();
         }
         
         return ret_val;
     }
     
     @Override
-    public String getThirdDataColumnDescriptor()
+    public String getBlockDataColumnDescriptor()
     {
         String ret_val = "";
         PARENT p = getParent();
         
         if(p != null){
-            ret_val = p.getThirdDataColumnDescriptor();
+            ret_val = p.getBlockDataColumnDescriptor();
         }
         
         return ret_val;
     }
     
     @Override
-    public String getFourthDataColumnDescriptor()
+    public String getLineDataColumnDescriptor()
     {
         String ret_val = "";
         PARENT p = getParent();
         
         if(p != null){
-            ret_val = p.getFourthDataColumnDescriptor();
+            ret_val = p.getLineDataColumnDescriptor();
         }
         
         return ret_val;
     }
-    
+   
     @Override
-    public String getFifthDataColumnDescriptor()
+    public String getConditionDataColumnDescriptor()
     {
         String ret_val = "";
         PARENT p = getParent();
         
         if(p != null){
-            ret_val = p.getFifthDataColumnDescriptor();
+            ret_val = p.getConditionDataColumnDescriptor();
+        }
+        
+        return ret_val;
+    }
+   
+    @Override
+    public String getMccDataColumnDescriptor()
+    {
+        String ret_val = "";
+        PARENT p = getParent();
+        
+        if(p != null){
+            ret_val = p.getMccDataColumnDescriptor();
+        }
+        
+        return ret_val;
+    }
+
+    @Override
+    public String getMcDcDataColumnDescriptor()
+    {
+        String ret_val = "";
+        PARENT p = getParent();
+        
+        if(p != null){
+            ret_val = p.getMcDcDataColumnDescriptor();
+        }
+        
+        return ret_val;
+    }
+
+    @Override
+    public String getDecisionDataColumnDescriptor()
+    {
+        String ret_val = "";
+        PARENT p = getParent();
+        
+        if(p != null){
+            ret_val = p.getDecisionDataColumnDescriptor();
         }
         
         return ret_val;

@@ -210,7 +210,10 @@ public class EmmaBuilderTrendChart extends DashboardPortlet {
       float classCoverage = 0;
       float lineCoverage = 0;
       float methodCoverage = 0;
+      float decisionCoverage = 0;
       float conditionCoverage = 0;
+      float mcdcCoverage = 0;
+      float mccCoverage = 0;
 
       int count = 0;
 
@@ -221,7 +224,10 @@ public class EmmaBuilderTrendChart extends DashboardPortlet {
         classCoverage += item.getClassCoverage();
         lineCoverage += item.getLineCoverage();
         methodCoverage += item.getMethodCoverage();
+        decisionCoverage += item.getDecisionCoverage();
         conditionCoverage += item.getConditionCoverage();
+        mcdcCoverage += item.getMcDcCoverage();
+        mccCoverage += item.getMccCoverage();
         count++;
       }
 
@@ -229,7 +235,10 @@ public class EmmaBuilderTrendChart extends DashboardPortlet {
       dataSetBuilder.add((classCoverage / count), "class", entry.getKey());
       dataSetBuilder.add((lineCoverage / count), "line", entry.getKey());
       dataSetBuilder.add((methodCoverage / count), "method", entry.getKey());
-      dataSetBuilder.add((conditionCoverage / count), "decision/condition", entry.getKey());
+      dataSetBuilder.add((decisionCoverage / count), "decision", entry.getKey());
+      dataSetBuilder.add((conditionCoverage / count), "condition", entry.getKey());
+      dataSetBuilder.add((mcdcCoverage / count), "MC/DC", entry.getKey());
+      dataSetBuilder.add((mccCoverage / count), "xMCC", entry.getKey());
     }
 
     return dataSetBuilder.build();

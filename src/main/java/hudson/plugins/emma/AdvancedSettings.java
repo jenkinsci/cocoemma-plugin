@@ -9,11 +9,14 @@ public class AdvancedSettings implements Serializable {
     
     private boolean testNotMandatory = false;
 
-    private String firstDataColumnDescriptor = "";
-    private String secondDataColumnDescriptor = "";
-    private String thirdDataColumnDescriptor = "";
-    private String fourthDataColumnDescriptor = "";
-    private String fifthDataColumnDescriptor = "";
+    private String classDataColumnDescriptor = "";
+    private String methodDataColumnDescriptor = "";
+    private String blockDataColumnDescriptor = "";
+    private String lineDataColumnDescriptor = "";
+    private String decisionDataColumnDescriptor = "";
+    private String conditionDataColumnDescriptor = "";
+    private String mcdcDataColumnDescriptor = "";
+    private String mccDataColumnDescriptor = "";
 
 
     private String getValue(String value, String defaultValue){   
@@ -36,65 +39,98 @@ public class AdvancedSettings implements Serializable {
         return testNotMandatory;
     }
     
-    public String getFirstDataColumnDescriptor() {   
+    public String getClassDataColumnDescriptor() {   
         
-        return getValue(firstDataColumnDescriptor, Messages.CoverageObject_Legend_Class());
+        return getValue(classDataColumnDescriptor, Messages.CoverageObject_Legend_Class());
     }
     
-    public void setFirstDataColumnDescriptor(String name) {
+    public void setClassDataColumnDescriptor(String name) {
         
-        firstDataColumnDescriptor = name;
+        classDataColumnDescriptor = name;
     }
 
-    public String getSecondDataColumnDescriptor() {
+    public String getMethodDataColumnDescriptor() {
         
-        return getValue(secondDataColumnDescriptor, Messages.CoverageObject_Legend_Block());
+        return getValue(methodDataColumnDescriptor, Messages.CoverageObject_Legend_Block());
     }
     
-    public void setSecondDataColumnDescriptor(String name) {
+    public void setMethodDataColumnDescriptor(String name) {
         
-        secondDataColumnDescriptor = name;
+        methodDataColumnDescriptor = name;
     }
 
-    public String getThirdDataColumnDescriptor() {
+    public String getBlockDataColumnDescriptor() {
         
-        return getValue(thirdDataColumnDescriptor, Messages.CoverageObject_Legend_Method());
+        return getValue(blockDataColumnDescriptor, Messages.CoverageObject_Legend_Method());
     }
     
-    public void setThirdDataColumnDescriptor(String name) {
+    public void setBlockDataColumnDescriptor(String name) {
         
-        thirdDataColumnDescriptor = name;
+        blockDataColumnDescriptor = name;
     }
 
-    public String getFourthDataColumnDescriptor() {
+    public String getLineDataColumnDescriptor() {
         
-        return getValue(fourthDataColumnDescriptor, Messages.CoverageObject_Legend_Line());
+        return getValue(lineDataColumnDescriptor, Messages.CoverageObject_Legend_Line());
     }
     
-    public void setFourthDataColumnDescriptor(String name) {
+    public void setLineDataColumnDescriptor(String name) {
         
-        fourthDataColumnDescriptor = name;
+        lineDataColumnDescriptor = name;
     }
 
-    public String getFifthDataColumnDescriptor() {
+    public String getConditionDataColumnDescriptor() {
         
-        return getValue(fifthDataColumnDescriptor, Messages.CoverageObject_Legend_Condition());
+        return getValue(conditionDataColumnDescriptor, Messages.CoverageObject_Legend_Condition());
     }
     
-    public void setFifthDataColumnDescriptor(String name) {
+    public void setConditionDataColumnDescriptor(String name) {
         
-        fifthDataColumnDescriptor = name;
+        conditionDataColumnDescriptor = name;
+    }
+    
+    public String getDecisionDataColumnDescriptor() {
+        
+        return getValue(decisionDataColumnDescriptor, Messages.CoverageObject_Legend_Decision());
+    }
+    
+    public void setDecisionDataColumnDescriptor(String name) {
+        
+        decisionDataColumnDescriptor = name;
+    }
+    
+    public String getMcDcDataColumnDescriptor() {
+        
+        return getValue(mcdcDataColumnDescriptor, Messages.CoverageObject_Legend_Mcdc());
+    }
+    
+    public void setMccDataColumnDescriptor(String name) {
+        
+        mccDataColumnDescriptor = name;
+    }
+    
+    public String getMccDataColumnDescriptor() {
+        
+        return getValue(mccDataColumnDescriptor, Messages.CoverageObject_Legend_Mcc());
+    }
+    
+    public void setMcDcDataColumnDescriptor(String name) {
+        
+        mcdcDataColumnDescriptor = name;
     }
     
     public void applySettings(AdvancedSettings settings){
         
         if(settings != null){
             setTestNotMandatory(settings.getTestNotMandatory());
-            setFirstDataColumnDescriptor(settings.getFirstDataColumnDescriptor());
-            setSecondDataColumnDescriptor(settings.getSecondDataColumnDescriptor());
-            setThirdDataColumnDescriptor(settings.getThirdDataColumnDescriptor());
-            setFourthDataColumnDescriptor(settings.getFourthDataColumnDescriptor());
-            setFifthDataColumnDescriptor(settings.getFifthDataColumnDescriptor());
+            setClassDataColumnDescriptor(settings.getClassDataColumnDescriptor());
+            setMethodDataColumnDescriptor(settings.getMethodDataColumnDescriptor());
+            setBlockDataColumnDescriptor(settings.getBlockDataColumnDescriptor());
+            setLineDataColumnDescriptor(settings.getLineDataColumnDescriptor());
+            setConditionDataColumnDescriptor(settings.getConditionDataColumnDescriptor());
+            setDecisionDataColumnDescriptor(settings.getDecisionDataColumnDescriptor());
+            setMcDcDataColumnDescriptor(settings.getMcDcDataColumnDescriptor());
+            setMccDataColumnDescriptor(settings.getMccDataColumnDescriptor());
         }
     }    
 }

@@ -180,6 +180,10 @@ public class EmmaPublisher extends Recorder {
 			final PrintStream logger, EnvVars env, final EmmaBuildAction action) {
 		if (useThreshold) {
         	if (isMethodCoverageOk(action) 
+        			|| isConditionCoverageOk(action) 
+        			|| isDecisionCoverageOk(action) 
+        			|| isMccCoverageOk(action) 
+        			|| isMcDcCoverageOk(action) 
         			|| isClassCoverageOk(action) 
         			|| isBlockCoverageOk(action)
         			|| isLineCoverageOk(action)){
@@ -198,7 +202,35 @@ public class EmmaPublisher extends Recorder {
         	if (isLineCoverageOk(action)) {
         		logger.println("Emma: Line coverage "+action.getLineCoverage().getPercentage(advancedSettings.getTestNotMandatory())+"% < "+healthReports.getMinLine()+"%.");
 			}
+        	if (isDecisionCoverageOk(action)) {
+        		logger.println("Emma: Decision coverage "+action.getDecisionCoverage().getPercentage(advancedSettings.getTestNotMandatory())+"% < "+healthReports.getMinLine()+"%.");
+			}
+        	if (isConditionCoverageOk(action)) {
+        		logger.println("Emma: Condition coverage "+action.getConditionCoverage().getPercentage(advancedSettings.getTestNotMandatory())+"% < "+healthReports.getMinLine()+"%.");
+			}
+        	if (isMcDcCoverageOk(action)) {
+        		logger.println("Emma: MC/DC coverage "+action.getMcDcCoverage().getPercentage(advancedSettings.getTestNotMandatory())+"% < "+healthReports.getMinLine()+"%.");
+			}
+        	if (isMccCoverageOk(action)) {
+        		logger.println("Emma: MCC coverage "+action.getMccCoverage().getPercentage(advancedSettings.getTestNotMandatory())+"% < "+healthReports.getMinLine()+"%.");
+			}
 		}
+	}
+
+	private boolean isDecisionCoverageOk(final EmmaBuildAction action) {
+		return action.getDecisionCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinDecision();
+	}
+
+	private boolean isMcDcCoverageOk(final EmmaBuildAction action) {
+		return action.getMcDcCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinMcDc();
+	}
+
+	private boolean isMccCoverageOk(final EmmaBuildAction action) {
+		return action.getMccCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinMcc();
+	}
+
+	private boolean isConditionCoverageOk(final EmmaBuildAction action) {
+		return action.getConditionCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinCondition();
 	}
 
 	private boolean isLineCoverageOk(final EmmaBuildAction action) {
@@ -300,8 +332,17 @@ public class EmmaPublisher extends Recorder {
             if ("".equals(req.getParameter("emmaHealthReports.maxLine"))) {
                 pub.healthReports.setMaxLine(80);
             }
+            if ("".equals(req.getParameter("emmaHealthReports.maxDecision"))) {
+                pub.healthReports.setMaxDecision(80);
+            }
             if ("".equals(req.getParameter("emmaHealthReports.maxCondition"))) {
                 pub.healthReports.setMaxCondition(80);
+            }
+            if ("".equals(req.getParameter("emmaHealthReports.maxMcDc"))) {
+                pub.healthReports.setMaxMcDc(80);
+            }
+            if ("".equals(req.getParameter("emmaHealthReports.maxMcc"))) {
+                pub.healthReports.setMaxMcc(80);
             }
             // end ugly hack
 

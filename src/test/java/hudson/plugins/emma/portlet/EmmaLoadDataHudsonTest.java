@@ -138,20 +138,44 @@ public class EmmaLoadDataHudsonTest extends HudsonTestCase {
         float lineCoverage = 82.0f;
         float methodCoverage = 0.7f;
         float conditionCoverage = 0.8f;
+        float decisionCoverage = 2.8f;
+        float mcdcCoverage = 4.8f;
+        float mccCoverage = 5.8f;
 
         float blockCoverage2 = 54.0f;
         float classCoverage2 = 86.9f;
         float lineCoverage2 = 21.7f;
         float methodCoverage2 = 60.0f;
         float conditionCoverage2 = 0.9f;
+        float decisionCoverage2 = 0.4f;
+        float mcdcCoverage2 = 0.3f;
+        float mccCoverage2 = 1.8f;
 
         // create a result summary with data from the first emma action
-        EmmaCoverageResultSummary coverageResultSummary = new EmmaCoverageResultSummary(null, blockCoverage, lineCoverage, methodCoverage,
-          classCoverage,conditionCoverage);
+        EmmaCoverageResultSummary coverageResultSummary = new EmmaCoverageResultSummary(
+                null, 
+                blockCoverage,
+                lineCoverage,
+                methodCoverage,
+                classCoverage,
+                decisionCoverage,
+                conditionCoverage,
+                mcdcCoverage,
+                mccCoverage
+                );
 
         // create a result summary with data from the second emma action
-        EmmaCoverageResultSummary coverageResultSummary2 = new EmmaCoverageResultSummary(null, blockCoverage2, lineCoverage2, methodCoverage2,
-          classCoverage2, conditionCoverage2);
+        EmmaCoverageResultSummary coverageResultSummary2 = new EmmaCoverageResultSummary(
+                null, 
+                blockCoverage2, 
+                lineCoverage2, 
+                methodCoverage2,
+                classCoverage2,
+                decisionCoverage2,
+                conditionCoverage2,
+                mcdcCoverage2,
+                mccCoverage2
+                );
 
         // add both coverage result summaries to the emma result summary
         EmmaCoverageResultSummary summary = new EmmaCoverageResultSummary();
@@ -164,6 +188,9 @@ public class EmmaLoadDataHudsonTest extends HudsonTestCase {
         assertEquals(lineCoverage + lineCoverage2, summary.getLineCoverage());
         assertEquals(methodCoverage + methodCoverage2, summary.getMethodCoverage());
         assertEquals(conditionCoverage + conditionCoverage2, summary.getConditionCoverage());
+        assertEquals(decisionCoverage + decisionCoverage2, summary.getDecisionCoverage());
+        assertEquals(mcdcCoverage + mcdcCoverage2, summary.getMcDcCoverage());
+        assertEquals(mccCoverage + mccCoverage2, summary.getMccCoverage());
     }
 
     /**

@@ -8,7 +8,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
   
     public void testLoadCocoReport1() throws Exception {
         EmmaBuildAction r = EmmaBuildAction.load(null,null,
-                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70),
+                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70,21,71,22,72,23,73),
                 getClass().getResourceAsStream("coco1.xml"));
 
         assertRatio(r.clazz, 75,94);
@@ -24,7 +24,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
 
     public void testLoadCocoReport2() throws Exception {
         EmmaBuildAction r = EmmaBuildAction.load(null,null,
-                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70),
+                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70,21,71,22,72,23,73),
                 getClass().getResourceAsStream("coco2.xml"));
 
         assertRatio(r.clazz, 1,1);
@@ -41,7 +41,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
     
     public void testLoadCocoReport3() throws Exception {
         EmmaBuildAction r = EmmaBuildAction.load(null,null,
-                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70),
+                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70, 21,71,22,72,23,73),
                 getClass().getResourceAsStream("coco3.xml"));
 
         assertRatio(r.clazz, 1,1);
@@ -57,7 +57,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
     
     public void testLoadReport1() throws Exception {
         EmmaBuildAction r = EmmaBuildAction.load(null,null,
-                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70),
+                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70,21,71,22,72,23,73),
                 getClass().getResourceAsStream("coverage.xml"));
         assertEquals(100, r.clazz.getPercentage(r.getTestNotMandatory()));
         assertEquals(64, r.line.getPercentage(r.getTestNotMandatory()));
@@ -72,7 +72,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
     
     public void testLoadReport2() throws Exception {
         EmmaBuildAction r = EmmaBuildAction.load(null,null,
-                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70),
+                new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70,21,71,22,72,23,73),
                 getClass().getResourceAsStream("coverageh.xml"));
         assertEquals(1, r.clazz.getPercentage(r.getTestNotMandatory()));
         assertEquals(1, r.line.getPercentage(r.getTestNotMandatory()));
@@ -87,7 +87,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
     
     public void testLoadMultipleReports() throws Exception {
       EmmaBuildAction r = EmmaBuildAction.load(null,null,
-              new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70),
+              new EmmaHealthReportThresholds(30, 90, 25, 80, 20, 70, 15, 60,20,70,21,71,22,72,23,73),
               getClass().getResourceAsStream("coverage.xml"), 
               getClass().getResourceAsStream("coverageh.xml"));
       assertEquals(56, r.clazz.getPercentage(r.getTestNotMandatory()));

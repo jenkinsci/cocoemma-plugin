@@ -180,7 +180,10 @@ public final class EmmaLoadData {
     float classCoverage = 0.0f;
     float lineCoverage = 0.0f;
     float methodCoverage = 0.0f;
+    float decisionCoverage = 0.0f;
     float conditionCoverage = 0.0f;
+    float mcdcCoverage = 0.0f;
+    float mccCoverage = 0.0f;
 
     if (emmaAction != null) {
       if (null != emmaAction.getBlockCoverage()) {
@@ -195,11 +198,30 @@ public final class EmmaLoadData {
       if (null != emmaAction.getMethodCoverage()) {
         methodCoverage = emmaAction.getMethodCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
       }
+      if (null != emmaAction.getDecisionCoverage()) {
+        decisionCoverage = emmaAction.getDecisionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      }
       if (null != emmaAction.getConditionCoverage()) {
         conditionCoverage = emmaAction.getConditionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
       }
+      if (null != emmaAction.getMcDcCoverage()) {
+        mcdcCoverage = emmaAction.getMcDcCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      }
+      if (null != emmaAction.getMccCoverage()) {
+        mccCoverage = emmaAction.getMccCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      }
     }
-    return new EmmaCoverageResultSummary(run.getParent(), blockCoverage, lineCoverage, methodCoverage, classCoverage, conditionCoverage);
+    return new EmmaCoverageResultSummary(
+            run.getParent(), 
+            blockCoverage,
+            lineCoverage, 
+            methodCoverage, 
+            classCoverage, 
+            decisionCoverage,
+            conditionCoverage,
+            mcdcCoverage,
+            mccCoverage
+            );
   }
 
   /**
@@ -218,7 +240,10 @@ public final class EmmaLoadData {
       float classCoverage = 0.0f;
       float lineCoverage = 0.0f;
       float methodCoverage = 0.0f;
+      float decisionCoverage = 0.0f;
       float conditionCoverage = 0.0f;
+      float mcdcCoverage = 0.0f;
+      float mccCoverage = 0.0f;
 
       Run run = job.getLastSuccessfulBuild();
 
@@ -256,16 +281,46 @@ public final class EmmaLoadData {
             methodCoverage = bigMethodCoverage.floatValue();
           }
           
+          if (null != emmaAction.getDecisionCoverage()) {
+            decisionCoverage = emmaAction.getDecisionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+            BigDecimal bigCoverage = new BigDecimal(decisionCoverage);
+            bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
+            decisionCoverage = bigCoverage.floatValue();
+          }
+          
           if (null != emmaAction.getConditionCoverage()) {
             conditionCoverage = emmaAction.getConditionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
-            BigDecimal bigConditionCoverage = new BigDecimal(conditionCoverage);
-            bigConditionCoverage = bigConditionCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
-            conditionCoverage = bigConditionCoverage.floatValue();
+            BigDecimal bigCoverage = new BigDecimal(conditionCoverage);
+            bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
+            conditionCoverage = bigCoverage.floatValue();
+          }
+          if (null != emmaAction.getMcDcCoverage()) {
+            mcdcCoverage = emmaAction.getMcDcCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+            BigDecimal bigCoverage = new BigDecimal(mcdcCoverage);
+            bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
+            mcdcCoverage = bigCoverage.floatValue();
+          }
+          if (null != emmaAction.getMccCoverage()) {
+            mccCoverage = emmaAction.getMccCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+            BigDecimal bigCoverage = new BigDecimal(mccCoverage);
+            bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
+            mccCoverage = bigCoverage.floatValue();
           }
         }
       }
-      summary.addCoverageResult(new EmmaCoverageResultSummary(job, blockCoverage, lineCoverage, methodCoverage,
-        classCoverage, conditionCoverage));
+      summary.addCoverageResult(
+              new EmmaCoverageResultSummary(
+                  job, 
+                  blockCoverage, 
+                  lineCoverage, 
+                  methodCoverage,
+                  classCoverage, 
+                  decisionCoverage,
+                  conditionCoverage,
+                  mcdcCoverage,
+                  mccCoverage
+                  )
+              );
     }
     return summary;
   }
