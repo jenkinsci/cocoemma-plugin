@@ -8,14 +8,18 @@
     <relativePath />
   </parent>
 
-  <artifactId>emma</artifactId>
-  <version>1.30</version>
+  <artifactId>cocoemma</artifactId>
+  <version>1.0</version>
   <packaging>hpi</packaging>
 
-  <name>Jenkins Emma plugin</name>
-  <url>https://wiki.jenkins-ci.org/display/JENKINS/Emma+Plugin</url>
+  <name>Squish Coco Emma plugin</name>
+  <url>https://froglogic.com/coco/</url>
 
   <developers>
+    <developer>
+      <id>testcocoon</id>
+      <name>Sébastien Fricker</name>
+    </developer>
     <developer>
       <id>kohsuke</id>
       <name>Kohsuke Kawaguchi</name>
@@ -36,8 +40,8 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/jenkinsci/emma-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/emma-plugin.git</developerConnection>
+    <connection>scm:git:git://github.com/testcocoon/emma-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:testcocoon/emma-plugin.git</developerConnection>
   </scm>
 
   <properties>
