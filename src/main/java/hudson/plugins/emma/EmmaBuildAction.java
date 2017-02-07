@@ -167,10 +167,12 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
             reports.add(Messages._BuildAction_Perfect());
         }
         // Collect params and replace nulls with empty string
-        Object[] args = reports.toArray(new Object[5]);
-        for (int i = 4; i >= 0; i--) if (args[i]==null) args[i] = ""; else break;
-        return new HealthReport(score, Messages._BuildAction_Description(
-                args[0], args[1], args[2], args[3], args[4]));
+        Object[] args = reports.toArray(new Object[8]);
+        for (int i = 7; i >= 0; i--) if (args[i]==null) args[i] = ""; else break;
+        return new HealthReport(
+                score, 
+                Messages._BuildAction_Description( args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7])
+                );
     }
 
     private static int updateHealthScore(int score, int min, int value, int max) {
