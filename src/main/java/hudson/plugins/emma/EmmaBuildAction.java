@@ -169,9 +169,12 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
         // Collect params and replace nulls with empty string
         Object[] args = reports.toArray(new Object[8]);
         for (int i = 7; i >= 0; i--) if (args[i]==null) args[i] = ""; else break;
+        
+        String description = Messages._BuildAction_Description( args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7]).toString() ;
+        description = description.trim();
         return new HealthReport(
                 score, 
-                Messages._BuildAction_Description( args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7])
+                description
                 );
     }
 

@@ -18,7 +18,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
         assertRatio(r.condition, 5917,15253);
  
         String description = r.getBuildHealth().getDescription() ;
-        assertEquals("Coverage: Classes 75/94 (80%). Methods 947/2176 (44%). Blocks 2842/7967 (36%). Decisions/Conditions 5917/15253 (39%). ",
+        assertEquals("Coverage: Class 75/94 (80%). Function 947/2176 (44%). Statement (Block) 2842/7967 (36%). Condition 5917/15253 (39%).",
                      description);
     }
 
@@ -34,7 +34,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
         assertRatio(r.condition, 4,15);
  
         String description = r.getBuildHealth().getDescription() ;
-        assertEquals("Coverage: Blocks 2/5 (40%). Decisions/Conditions 4/15 (27%).   ",
+        assertEquals("Coverage: Statement (Block) 2/5 (40%). Condition 4/15 (27%).",
                      description);
     }
     
@@ -51,7 +51,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
         assert(r.condition==null);
  
         String description = r.getBuildHealth().getDescription() ;
-        assertEquals("Coverage: Blocks 2/5 (40%).    ",
+        assertEquals("Coverage: Statement (Block) 2/5 (40%).",
                      description);
     }
     
@@ -66,7 +66,7 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
         assertRatio(r.block, 44997,74846);
         assertRatio(r.line, 8346.3f,13135);
         assert(r.condition == null);
-        assertEquals("Coverage: Methods 1345/2061 (65%). Blocks 44997/74846 (60%).   ",
+        assertEquals("Coverage: Function 1345/2061 (65%). Statement (Block) 44997/74846 (60%).",
                      r.getBuildHealth().getDescription());
     }
     
@@ -81,8 +81,9 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
         assertRatio(r.block, 42, 9659);
         assertRatio(r.line, 9, 1693);
         assert(r.condition == null);
-        assertEquals("Coverage: Classes 1/149 (1%). Methods 2/678 (0%). Blocks 42/9659 (0%). Lines 9/1693 (1%). ",
-                     r.getBuildHealth().getDescription());
+        String description = r.getBuildHealth().getDescription() ;
+        assertEquals("Coverage: Class 1/149 (1%). Function 2/678 (0%). Statement (Block) 42/9659 (0%). Line 9/1693 (1%).",
+                     description);
     }
     
     public void testLoadMultipleReports() throws Exception {
@@ -97,7 +98,8 @@ public class EmmaBuildActionTest extends AbstractEmmaTestBase {
       assertRatio(r.block, 45039, 84505);
       assertRatio(r.line, 8355.3f,14828);
       assert(r.condition == null);
-      assertEquals("Coverage: Classes 186/334 (56%). Methods 1347/2739 (49%). Blocks 45039/84505 (53%). Lines 8355.3/14828 (56%). ",
-                   r.getBuildHealth().getDescription());
+      String description = r.getBuildHealth().getDescription() ;
+      assertEquals("Coverage: Class 186/334 (56%). Function 1347/2739 (49%). Statement (Block) 45039/84505 (53%). Line 8355.3/14828 (56%).",
+                   description);
   }
 }
