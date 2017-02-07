@@ -183,21 +183,18 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
         HtmlForm f = p.getFormByName("config");
 
         f.getInputByName("hudson-plugins-emma-EmmaPublisher").setChecked(true);
-        f.getInputByName("emmaAdvancedSettings.classDataColumnDescriptor").setValueAttribute("test_class");
-        f.getInputByName("emmaAdvancedSettings.methodDataColumnDescriptor").setValueAttribute("test_method");
-        f.getInputByName("emmaAdvancedSettings.blockDataColumnDescriptor").setValueAttribute("test_block");
-        f.getInputByName("emmaAdvancedSettings.lineDataColumnDescriptor").setValueAttribute("test_line");
-        f.getInputByName("emmaAdvancedSettings.conditionDataColumnDescriptor").setValueAttribute("test_condition");
         submit(f);
 
         EmmaPublisher publisher = (EmmaPublisher) fp.getPublisher(EmmaPublisher.DESCRIPTOR);
         AdvancedSettings advancedSettings = publisher.advancedSettings;
         
-        assertEquals("test_class", advancedSettings.getClassDataColumnDescriptor());
-        assertEquals("test_class", advancedSettings.getClassDataColumnDescriptor());
-        assertEquals("test_method", advancedSettings.getMethodDataColumnDescriptor());
-        assertEquals("test_block", advancedSettings.getBlockDataColumnDescriptor());
-        assertEquals("test_line", advancedSettings.getLineDataColumnDescriptor());
-        assertEquals("test_condition", advancedSettings.getConditionDataColumnDescriptor());
+        assertEquals("Class", advancedSettings.getClassDataColumnDescriptor());
+        assertEquals("Function", advancedSettings.getMethodDataColumnDescriptor());
+        assertEquals("Statement (Block)", advancedSettings.getBlockDataColumnDescriptor());
+        assertEquals("Line", advancedSettings.getLineDataColumnDescriptor());
+        assertEquals("Decision", advancedSettings.getDecisionDataColumnDescriptor());
+        assertEquals("Condition", advancedSettings.getConditionDataColumnDescriptor());
+        assertEquals("MC/DC", advancedSettings.getMcDcDataColumnDescriptor());
+        assertEquals("MCC", advancedSettings.getMccDataColumnDescriptor());
     }
 }
