@@ -19,7 +19,7 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
 
     private CoverageReport(EmmaBuildAction action) {
         this.action = action;
-        setName("Emma");
+        setName("SquishCocoEmma");
     }
 
     public CoverageReport(EmmaBuildAction action, InputStream... xmlReports) throws IOException {

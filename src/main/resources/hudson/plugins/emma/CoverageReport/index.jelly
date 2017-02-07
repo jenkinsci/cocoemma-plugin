@@ -2,7 +2,7 @@
   <l:layout xmlns:e="/hudson/plugins/emma/tags" norefresh="true" css="/plugin/emma/css/style.css">
     <st:include it="${it.build}" page="sidepanel.jelly" />
     <l:main-panel>
-      <h2>${%Emma Coverage Report}</h2>
+      <h2>${%Squish Coco Coverage Report}</h2>
       <e:floatingTrendGraph/>
 
       <h3>${%Overall Coverage Summary}</h3>
