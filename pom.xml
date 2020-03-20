@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>cocoemma</artifactId>
-  <version>4.0.0-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
   <name>Squish Coco Emma plugin</name>
