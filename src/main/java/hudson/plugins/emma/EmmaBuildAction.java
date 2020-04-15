@@ -5,7 +5,6 @@ import hudson.model.AbstractBuild;
 import hudson.model.HealthReport;
 import hudson.model.HealthReportingAction;
 import hudson.model.Result;
-import hudson.util.IOException2;
 import hudson.util.NullStream;
 import hudson.util.StreamTaskListener;
 
@@ -172,10 +171,11 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
         
         String description = Messages._BuildAction_Description( args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7]).toString() ;
         description = description.trim();
-        return new HealthReport(
-                score, 
-                description
-                );
+             
+        HealthReport report_desc = new HealthReport();
+        report_desc.setScore(score);
+        report_desc.setDescription(description);
+        return report_desc;
     }
 
     private static int updateHealthScore(int score, int min, int value, int max) {
@@ -279,17 +279,20 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
      */
     public static EmmaBuildAction load(AbstractBuild<?,?> owner, Rule rule, EmmaHealthReportThresholds thresholds, FilePath... files) throws IOException {
         Ratio ratios[] = null;
-        for (FilePath f: files ) {
-            InputStream in = f.read();
+        for (FilePath f : files) {
             try {
-                ratios = loadRatios(in, ratios);
-            } catch (XmlPullParserException e) {
-                throw new IOException2("Failed to parse " + f, e);
-            } finally {
-                in.close();
+                InputStream in = f.read();
+                try {
+                    ratios = loadRatios(in, ratios);
+                } catch (XmlPullParserException e) {
+                    throw new IOException("Failed to parse " + f, e);
+                } finally {
+                    in.close();
+                }
+            } catch (java.lang.InterruptedException e) {
+                throw new IOException("Failed to parse " + f, e);
             }
         }
-           
         return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
     }
 

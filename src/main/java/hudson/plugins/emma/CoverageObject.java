@@ -3,6 +3,7 @@ package hudson.plugins.emma;
 import hudson.Util;
 import hudson.model.AbstractBuild;
 import hudson.model.Api;
+import hudson.model.Run;
 import hudson.util.ChartUtil;
 import hudson.util.ColorPalette;
 import hudson.util.DataSetBuilder;
@@ -228,8 +229,8 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
             protected DataSetBuilder<String, NumberOnlyBuildLabel> createDataSet(CoverageObject<SELF> obj) {
                 DataSetBuilder<String, NumberOnlyBuildLabel> dsb = new DataSetBuilder<String, NumberOnlyBuildLabel>();
 
-                for (CoverageObject<SELF> a = obj; a != null; a = a.getPreviousResult()) {
-                    NumberOnlyBuildLabel label = new NumberOnlyBuildLabel(a.getBuild());
+                for (CoverageObject<SELF> a = obj; a != null; a = a.getPreviousResult()) {                  
+                    NumberOnlyBuildLabel label = new NumberOnlyBuildLabel( (Run)a.getBuild());
                     dsb.add(a.clazz.getPercentageFloat(getTestNotMandatory()), a.getClassDataColumnDescriptor(), label);
                     dsb.add(a.method.getPercentageFloat(getTestNotMandatory()), a.getMethodDataColumnDescriptor(), label);
                     dsb.add(a.block.getPercentageFloat(getTestNotMandatory()), a.getBlockDataColumnDescriptor(), label);

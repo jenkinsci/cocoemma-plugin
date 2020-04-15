@@ -1,7 +1,6 @@
 package hudson.plugins.emma;
 
 import hudson.model.AbstractBuild;
-import hudson.util.IOException2;
 import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 
@@ -28,7 +27,7 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
           try {
             createDigester().parse(is);
           } catch (SAXException e) {
-              throw new IOException2("Failed to parse XML",e);
+              throw new IOException("Failed to parse XML",e);
           }
         }
         setParent(null);
@@ -39,7 +38,7 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
         try {
             createDigester().parse(xmlReport);
         } catch (SAXException e) {
-            throw new IOException2("Failed to parse "+xmlReport,e);
+            throw new IOException("Failed to parse "+xmlReport,e);
         }
         setParent(null);
     }
