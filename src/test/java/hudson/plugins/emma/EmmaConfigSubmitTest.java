@@ -13,7 +13,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
 
     public void testIncludeIsEmpty() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -30,7 +29,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
     
     public void testIncludeIsSet() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -47,7 +45,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
 
     public void testHealthReportDefaultMaxValue() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -73,7 +70,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
 
     public void testHealthReportDefaultMinValue() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -99,7 +95,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
 
     public void testHealthReportMaxValue() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -125,7 +120,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
 
     public void testHealthReportMinValue() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -151,7 +145,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
     
     public void test_new_no_tests_required_flag() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
@@ -176,7 +169,6 @@ public class EmmaConfigSubmitTest extends HudsonTestCase {
 
     public void testDataColumnMapping() throws Exception {
         WebClient client = new WebClient();
-        client.setThrowExceptionOnFailingStatusCode(false);
 
         FreeStyleProject fp = createFreeStyleProject();
         HtmlPage p = client.goTo(fp.getUrl() + "/configure");
