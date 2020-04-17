@@ -26,7 +26,7 @@
  @author Eduardo Palazzo (Eduardo.Palazzo@sonyericsson.com)
  @author Mauro Durante (Mauro.DuranteJunior@sonyericsson.com)
 -->
-<?jelly escape-by-default='true'?>
+<?jelly escape-by-default='false'?>
 
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:dp="/hudson/plugins/view/dashboard" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
   <dp:decorate portlet="${it}">

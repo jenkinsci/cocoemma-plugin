@@ -1,4 +1,4 @@
-<?jelly escape-by-default='true'?>
+<?jelly escape-by-default='false'?>
 <div>
   This plugin integrates <a href="http://emma.sf.net/">EMMA code coverage reports</a> to Jenkins.
 </div>
