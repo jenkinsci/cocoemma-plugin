@@ -40,8 +40,8 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/testcocoon/emma-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:testcocoon/emma-plugin.git</developerConnection>
+    <connection>scm:git:git://github.com/testcocoon/cocoemma-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:testcocoon/cocoemma-plugin.git</developerConnection>
   </scm>
 
   <properties>

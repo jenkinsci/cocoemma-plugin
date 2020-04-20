@@ -1,0 +1,108 @@
+package hudson.plugins.cocoemma;
+
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Reports that have children.
+ *
+ * @author Kohsuke Kawaguchi
+ */
+public abstract class AggregatedReport<PARENT extends AggregatedReport<?,PARENT,?>,
+    SELF extends AggregatedReport<PARENT,SELF,CHILD>,
+    CHILD extends AbstractReport<SELF,CHILD>> extends AbstractReport<PARENT,SELF> {
+
+    private final Map<String, CHILD> children = new TreeMap<String, CHILD>();
+
+    public void add(CHILD child) {
+        children.put(child.getName(),child);
+        this.hasClassCoverage();
+    }
+
+    public Map<String,CHILD> getChildren() {
+        return children;
+    }
+
+    protected void setParent(PARENT p) {
+        super.setParent(p);
+        for (CHILD c : children.values())
+            c.setParent((SELF)this);
+    }
+
+    public CHILD getDynamic(String token, StaplerRequest req, StaplerResponse rsp ) throws IOException {
+        return getChildren().get(token);
+    }
+    
+    @Override
+    public void setFailed() {
+        super.setFailed();
+
+        if (getParent() != null)
+            getParent().setFailed();
+    }
+    
+    public boolean hasChildren() {
+    	return getChildren().size() > 0;
+    }
+
+    public boolean hasChildrenLineCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasLineCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+    public boolean hasChildrenClassCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasClassCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+
+    public boolean hasChildrenDecisionCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasDecisionCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+
+    public boolean hasChildrenConditionCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasConditionCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+    public boolean hasChildrenMcDcCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasMcDcCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+    public boolean hasChildrenMccCoverage() {
+    	for (CHILD child : getChildren().values()){
+    		if (child.hasMccCoverage()) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+
+}

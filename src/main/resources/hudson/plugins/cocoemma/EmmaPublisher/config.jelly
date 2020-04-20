@@ -1,0 +1,188 @@
+<?jelly escape-by-default='false'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <f:entry title="${%entry.title}"
+           description="${%includes.description}">
+    <f:textbox name="cocoemma.includes" value="${instance.includes}"/>
+  </f:entry>
+  <f:entry title="${%useThreshold.title}"
+           description="${%useThreshold.description}">
+    <f:checkbox name="cocoemma.useThreshold" checked="${instance.useThreshold}"/>
+  </f:entry>
+  <!--
+  <f:entry title="${%MinLine Coverage}"
+           description="${%minLineCoveragePerSource.description}">
+    <f:textbox name="cocoemma.minLineCoveragePerSource" value="${instance.minLineCoveragePerSource}"/>
+  </f:entry>
+  -->
+    <f:entry title="${%Health reporting}"
+             description="${%thresholds.description(rootURL)}">
+        <table>
+            <thead>
+                <tr>
+                    <td width="10%"></td>
+                    <td width="10%">${%Class}</td>
+                    <td width="10%">${%Method}</td>
+                    <td width="10%">${%Block}</td>
+                    <td width="10%">${%Line}</td>
+                    <td width="10%">${%Decision}</td>
+                    <td width="10%">${%Condition}</td>
+                    <td width="10%">${%Mcdc}</td>
+                    <td width="10%">${%Mcc}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        <img src="${rootURL}/images/16x16/health-80plus.gif" alt="100%"
+                             title="${%health.100.title}"/>
+                    </th>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxClass" value="${instance.healthReports.maxClass}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxMethod" value="${instance.healthReports.maxMethod}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxBlock" value="${instance.healthReports.maxBlock}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxLine" value="${instance.healthReports.maxLine}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxDecision" value="${instance.healthReports.maxDecision}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxCondition" value="${instance.healthReports.maxCondition}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxMcDc" value="${instance.healthReports.maxMcDc}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.maxMcc" value="${instance.healthReports.maxMcc}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <img src="${rootURL}/images/16x16/health-00to19.gif" alt="0%"
+                             title="${%health.0.title}"/>
+                    </th>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minClass" value="${instance.healthReports.minClass}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minMethod" value="${instance.healthReports.minMethod}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minBlock" value="${instance.healthReports.minBlock}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minLine" value="${instance.healthReports.minLine}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minDecision" value="${instance.healthReports.minDecision}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minCondition" value="${instance.healthReports.minCondition}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minMcDc" value="${instance.healthReports.minMcDc}" />
+                    </td>
+                    <td>
+                        <f:textbox name="emmaHealthReports.minMcc" value="${instance.healthReports.minMcc}" />
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </f:entry>
+    
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--  the advanced setup support                                    -->
+    <f:section title="${%advancedSection.title}">
+        <f:advanced>
+
+            <f:entry title="${%test_not_mandatory.title}" description="${%test_not_mandatory.description}">
+              <f:checkbox name="emmaAdvancedSettings.testNotMandatory" checked="${instance.advancedSettings.testNotMandatory}"/>
+            </f:entry>
+            
+            <f:entry title="${%report map}" description="${%map.description(rootURL)}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="30%"></th>
+                            <th width="68%">${%mapped_emma_data_item}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                ${%class_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.classDataColumnDescriptor" value="${instance.advancedSettings.classDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%method_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.methodDataColumnDescriptor" value="${instance.advancedSettings.methodDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%block_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.blockDataColumnDescriptor" value="${instance.advancedSettings.blockDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%line_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.lineDataColumnDescriptor" value="${instance.advancedSettings.lineDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%decision_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.decisionDataColumnDescriptor" value="${instance.advancedSettings.decisionDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%condition_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.conditionDataColumnDescriptor" value="${instance.advancedSettings.conditionDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%mcdc_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.mcdcDataColumnDescriptor" value="${instance.advancedSettings.mcdcDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ${%mcc_data_item}
+                            </th>
+                            <td>
+                                <f:textbox name="emmaAdvancedSettings.mccDataColumnDescriptor" value="${instance.advancedSettings.mccDataColumnDescriptor}" />
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </f:entry>
+        </f:advanced>
+    </f:section>
+<!-- /////////////////////////////////////////////////////////////////////// -->
+</j:jelly>
