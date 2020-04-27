@@ -15,8 +15,9 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import static junit.framework.TestCase.assertEquals;
 import org.joda.time.LocalDate;
-import org.jvnet.hudson.test.HudsonTestCase;
+import org.jvnet.hudson.test.JenkinsRule;
 
 /**
  * Tests {@link hudson.plugins.cocoemma.portlet.EmmaLoadData} in a Hudson environment.
@@ -24,7 +25,7 @@ import org.jvnet.hudson.test.HudsonTestCase;
  * @author Robert Sandell &lt;robert.sandell@sonyericsson.com&gt;
  * @author Mauro Durante Junior (Mauro.Durantejunior@sonyericsson.com)
  */
-public class EmmaLoadDataHudsonTest extends HudsonTestCase {
+public class EmmaLoadDataHudsonTest extends JenkinsRule {
 
     /**
      * This method tests loadChartDataWithinRange() when it has positive number of days.
@@ -32,7 +33,7 @@ public class EmmaLoadDataHudsonTest extends HudsonTestCase {
      *
      * @throws Exception if so.
      */
-    public void testLoadChartDataWithinRangePositiveNumberOfDays() throws Exception {
+   public void testLoadChartDataWithinRangePositiveNumberOfDays() throws Exception {
 
         final float expectedBlockCoverage = 0.5f;
         final float expectedClassCoverage = 13.7f;
