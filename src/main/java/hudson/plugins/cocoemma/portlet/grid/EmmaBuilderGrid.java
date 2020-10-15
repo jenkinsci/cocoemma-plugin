@@ -43,7 +43,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 /**
  * A portlet for Emma Coverage results - Grid data.
  *
- * @see http://wiki.hudson-ci.org/display/HUDSON/Dashboard+View
+ * see http://wiki.hudson-ci.org/display/HUDSON/Dashboard+View
  */
 public class EmmaBuilderGrid extends DashboardPortlet {
 

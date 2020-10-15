@@ -42,7 +42,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
 
     /**
      * The thresholds that applied when this build was built.
-     * @TODO add ability to trend thresholds on the graph
+     * TODO add ability to trend thresholds on the graph
      */
     private final EmmaHealthReportThresholds thresholds;
 
