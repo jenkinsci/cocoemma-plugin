@@ -20,7 +20,8 @@ public abstract class AggregatedReport<PARENT extends AggregatedReport<?,PARENT,
 
     public void add(CHILD child) {
         children.put(child.getName(),child);
-        this.hasClassCoverage();
+        if ( this.hasClassCoverage() )
+            return ;
     }
 
     public Map<String,CHILD> getChildren() {

@@ -127,7 +127,9 @@ public class EmmaPublisher extends Recorder {
 
         FilePath[] reports;
         if (includes == null || includes.trim().length() == 0) {
-            logger.println("Emma: looking for coverage reports in the entire workspace: " + build.getWorkspace().getRemote());
+            FilePath wp = build.getWorkspace();
+            if ( wp != null )
+                 logger.println("Emma: looking for coverage reports in the entire workspace: " + wp.getRemote());
             reports = locateCoverageReports(build.getWorkspace(), "**/emma/coverage.xml");
         } else {
             logger.println("Emma: looking for coverage reports in the provided path: " + includes);
@@ -135,7 +137,8 @@ public class EmmaPublisher extends Recorder {
         }
 
         if (reports.length == 0) {
-            if (build.getResult().isWorseThan(Result.UNSTABLE)) {
+            Result res = build.getResult();
+            if ( res == null || res.isWorseThan(Result.UNSTABLE)) {
                 return true;
             }
 
@@ -145,7 +148,7 @@ public class EmmaPublisher extends Recorder {
         } else {
             String found = "";
             for (FilePath f : reports) {
-                found += "\n          " + f.getRemote();
+                found = found + "\n          " + f.getRemote();
             }
             logger.println("Emma: found " + reports.length + " report files: " + found);
         }

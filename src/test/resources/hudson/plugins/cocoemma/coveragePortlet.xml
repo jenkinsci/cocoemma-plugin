@@ -77,7 +77,7 @@
               <coverage type="block, %" value="0%   (0/4)"/>
               <coverage type="line, %" value="0%   (0/1)"/>
             </method>
-            <method name="ChartTitle (): String">
+            <method name="chartTitle (): String">
               <coverage type="method, %" value="0%   (0/1)"/>
               <coverage type="block, %" value="0%   (0/6)"/>
               <coverage type="line, %" value="0%   (0/1)"/>

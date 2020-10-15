@@ -193,7 +193,6 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
 	}
 	
 	protected static void printRatioTable(Ratio ratio, StringBuilder buf, boolean no_tests_required){
-		String data = dataFormat.format(ratio.getPercentageFloat(no_tests_required));
 		String percent = percentFormat.format(ratio.getPercentageFloat(no_tests_required));
 		String numerator = intFormat.format(ratio.getNumerator());
 		String denominator = intFormat.format(ratio.getDenominator());

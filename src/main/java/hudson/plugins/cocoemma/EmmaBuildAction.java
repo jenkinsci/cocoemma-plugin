@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -369,4 +370,5 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
     }
 
     private static final Logger logger = Logger.getLogger(EmmaBuildAction.class.getName());
+    private static final long serialVersionUID = 1L;
 }

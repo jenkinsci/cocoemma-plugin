@@ -81,7 +81,7 @@ public class EmmaBuilderGrid extends DashboardPortlet {
 
     @Override
     public String getDisplayName() {
-      return Messages.GridTitle();
+      return Messages.gridTitle();
     }
   }
 }
