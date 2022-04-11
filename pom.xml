@@ -48,8 +48,10 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/testcocoon/cocoemma-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:testcocoon/cocoemma-plugin.git</developerConnection>
+    <connection>scm:git:https://github.com/jenkinsci/cocoemma-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/cocoemma-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/cocoemma-plugin</url>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
