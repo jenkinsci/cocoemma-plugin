@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>cocoemma</artifactId>
-  <version>5.0.1-SNAPSHOT</version>
+  <version>${revision}${changelist}</version>
   <packaging>hpi</packaging>
 
   <name>Squish Coco Emma plugin</name>
@@ -52,13 +52,16 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/jenkinsci/cocoemma-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/cocoemma-plugin.git</developerConnection>
-    <url>https://github.com/jenkinsci/cocoemma-plugin</url>
-    <tag>HEAD</tag>
+    <connection>scm:git:https://github.com/${gitHubRepo}.git</connection>
+    <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
+    <url>https://github.com/${gitHubRepo}</url>
+    <tag>${scmTag}</tag>
   </scm>
 
   <properties>
+    <revision>5.0.1</revision>
+    <changelist>-SNAPSHOT</changelist>
+    <gitHubRepo>jenkinsci/cocoemma-plugin</gitHubRepo>
     <jenkins.version>2.303.1</jenkins.version>
     <java.level>8</java.level>
     <workflow-jenkins-plugin.version>1.11</workflow-jenkins-plugin.version>
