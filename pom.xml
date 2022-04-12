@@ -45,6 +45,10 @@
       <id>kbrandt</id>
       <name>Karsten Brandt</name>
     </developer>
+    <developer>
+      <id>Adakar</id>
+      <name>Jakub Topolski</name>
+    </developer>
   </developers>
 
   <scm>
