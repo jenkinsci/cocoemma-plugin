@@ -1,6 +1,7 @@
 package hudson.plugins.cocoemma;
 
-import hudson.model.AbstractBuild;
+import hudson.model.Run;
+
 import org.apache.commons.digester3.Digester;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -54,7 +55,7 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
     }
 
     @Override
-    public AbstractBuild<?,?> getBuild() {
+    public Run<?,?> getBuild() {
         return action.owner;
     }
 

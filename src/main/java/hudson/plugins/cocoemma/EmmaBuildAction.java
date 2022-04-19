@@ -5,8 +5,10 @@ import hudson.model.AbstractBuild;
 import hudson.model.HealthReport;
 import hudson.model.HealthReportingAction;
 import hudson.model.Result;
+import hudson.model.Run;
 import hudson.util.NullStream;
 import hudson.util.StreamTaskListener;
+import jenkins.model.RunAction2;
 
 import org.jvnet.localizer.Localizable;
 import org.kohsuke.stapler.StaplerProxy;
@@ -19,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,9 +31,9 @@ import java.util.logging.Logger;
  *
  * @author Kohsuke Kawaguchi
  */
-public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> implements HealthReportingAction, StaplerProxy {
+public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> implements HealthReportingAction, StaplerProxy, RunAction2 {
 	
-    public final AbstractBuild<?,?> owner;
+    public transient Run<?,?> owner;
 
     private transient WeakReference<CoverageReport> report;
 
@@ -193,7 +194,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
     }
 
     @Override
-    public AbstractBuild<?,?> getBuild() {
+    public Run<?,?> getBuild() {
         return owner;
     }
     
@@ -208,6 +209,10 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
 		}
 	}
 
+    public File getCocoEmmaReport() {
+        return new File(owner.getRootDir(), "cocoemma");
+    }
+
     /**
      * Obtains the detailed {@link CoverageReport} instance.
      */
@@ -218,7 +223,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
             if(r!=null)     return r;
         }
 
-        final File reportFolder = EmmaPublisher.getEmmaReport(owner);
+        final File reportFolder = getCocoEmmaReport();
 
         try {
         	
@@ -257,8 +262,8 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
     /**
      * Gets the previous {@link EmmaBuildAction} of the given build.
      */
-    /*package*/ static EmmaBuildAction getPreviousResult(AbstractBuild<?,?> start) {
-        AbstractBuild<?,?> b = start;
+    /*package*/ static EmmaBuildAction getPreviousResult(Run<?,?> start) {
+        Run<?,?> b = start;
         while(true) {
             b = b.getPreviousBuild();
             if(b==null)
@@ -366,8 +371,17 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
         }
         
         return r;
-
     }
+
+    @Override
+	public void onAttached(Run<?, ?> run) {
+		this.owner = run;
+	}
+
+	@Override
+	public void onLoad(Run<?, ?> run) {
+		this.owner = run;
+	}
 
     private static final Logger logger = Logger.getLogger(EmmaBuildAction.class.getName());
     private static final long serialVersionUID = 1L;
