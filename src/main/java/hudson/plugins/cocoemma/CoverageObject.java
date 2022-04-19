@@ -1,7 +1,6 @@
 package hudson.plugins.cocoemma;
 
 import hudson.Util;
-import hudson.model.AbstractBuild;
 import hudson.model.Api;
 import hudson.model.Run;
 import hudson.util.ChartUtil;
@@ -124,7 +123,7 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
     /**
      * Gets the build object that owns the whole coverage report tree.
      */
-    public abstract AbstractBuild<?,?> getBuild();
+    public abstract Run<?,?> getBuild();
 
     /**
      * Gets the corresponding coverage report object in the previous
@@ -214,13 +213,13 @@ public abstract class CoverageObject<SELF extends CoverageObject<SELF>> extends 
             return;
         }
 
-        AbstractBuild<?,?> build = getBuild();
+        Run<?,?> build = getBuild();
         Calendar t = build.getTimestamp();
 
         String w = Util.fixEmptyAndTrim(req.getParameter("width"));
         String h = Util.fixEmptyAndTrim(req.getParameter("height"));
-        int width = (w != null) ? Integer.valueOf(w) : 500;
-        int height = (h != null) ? Integer.valueOf(h) : 200;
+        int width = (w != null) ? Integer.parseInt(w) : 500;
+        int height = (h != null) ? Integer.parseInt(h) : 200;
 
         new GraphImpl(this, t, width, height) {
 

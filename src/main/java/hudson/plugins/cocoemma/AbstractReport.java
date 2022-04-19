@@ -1,7 +1,7 @@
 package hudson.plugins.cocoemma;
 
-import hudson.model.AbstractBuild;
 import hudson.model.ModelObject;
+import hudson.model.Run;
 
 import java.io.IOException;
 
@@ -64,7 +64,7 @@ public abstract class AbstractReport<
     }
 
     @Override
-    public AbstractBuild<?,?> getBuild() {
+    public Run<?, ?> getBuild() {
         return parent.getBuild();
     }
 

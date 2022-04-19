@@ -146,11 +146,12 @@ public class EmmaPublisher extends Recorder {
             build.setResult(Result.FAILURE);
             return true;
         } else {
-            String found = "";
+            StringBuilder found = new StringBuilder();
             for (FilePath f : reports) {
-                found = found + "\n          " + f.getRemote();
+                found.append("\n          ");
+                found.append(f.getRemote());
             }
-            logger.println("Emma: found " + reports.length + " report files: " + found);
+            logger.println("Emma: found " + reports.length + " report files: " + found.toString());
         }
 
         FilePath emmafolder = new FilePath(getEmmaReport(build));
