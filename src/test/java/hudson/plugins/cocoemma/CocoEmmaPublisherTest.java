@@ -8,7 +8,7 @@ import java.io.File;
  * 
  * @autor manuel_carrasco
  */
-public class EmmaPublisherTest extends AbstractEmmaTestBase {
+public class CocoEmmaPublisherTest extends AbstractEmmaTestBase {
 	
 	public void testLocateReports() throws Exception {
 
@@ -44,17 +44,17 @@ public class EmmaPublisherTest extends AbstractEmmaTestBase {
 		
 		// Look for files in the entire workspace recursively without providing 
 		// the includes parameter
-		FilePath[] reports = EmmaPublisher.locateCoverageReports(workspace, "**/coverage*.xml");
+		FilePath[] reports = CocoEmmaPublisher.locateCoverageReports(workspace, "**/coverage*.xml");
 		assertEquals(2 , reports.length);
 
 		// Generate a includes string and look for files 
 		String includes = f1.getName() + "; " + f2.getName() + "; " + d1.getName();
-		reports = EmmaPublisher.locateCoverageReports(workspace, includes);
+		reports = CocoEmmaPublisher.locateCoverageReports(workspace, includes);
 		assertEquals(3, reports.length);
 
 		// Save files in local workspace
 		FilePath local = workspace.child("coverage_localfolder");
-		EmmaPublisher.saveCoverageReports(local, reports);
+		CocoEmmaPublisher.saveCoverageReports(local, reports);
 		assertEquals(3, local.list().size());
 		local.deleteRecursive();
 

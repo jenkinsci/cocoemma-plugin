@@ -31,7 +31,7 @@ package hudson.plugins.cocoemma.portlet;
 
 import hudson.model.Job;
 import hudson.model.Run;
-import hudson.plugins.cocoemma.EmmaBuildAction;
+import hudson.plugins.cocoemma.CocoEmmaBuildAction;
 import hudson.plugins.cocoemma.portlet.bean.EmmaCoverageResultSummary;
 import hudson.plugins.cocoemma.portlet.utils.Utils;
 
@@ -174,7 +174,7 @@ public final class EmmaLoadData {
    * @return EmmaCoverageTestResult the coverage result
    */
   private static EmmaCoverageResultSummary getResult(Run run) {
-    EmmaBuildAction emmaAction = run.getAction(EmmaBuildAction.class);
+    CocoEmmaBuildAction cocoEmmaAction = run.getAction(CocoEmmaBuildAction.class);
 
     float blockCoverage = 0.0f;
     float classCoverage = 0.0f;
@@ -185,30 +185,30 @@ public final class EmmaLoadData {
     float mcdcCoverage = 0.0f;
     float mccCoverage = 0.0f;
 
-    if (emmaAction != null) {
-      if (null != emmaAction.getBlockCoverage()) {
-        blockCoverage = emmaAction.getBlockCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+    if (cocoEmmaAction != null) {
+      if (null != cocoEmmaAction.getBlockCoverage()) {
+        blockCoverage = cocoEmmaAction.getBlockCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getClassCoverage()) {
-        classCoverage = emmaAction.getClassCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getClassCoverage()) {
+        classCoverage = cocoEmmaAction.getClassCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getLineCoverage()) {
-        lineCoverage = emmaAction.getLineCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getLineCoverage()) {
+        lineCoverage = cocoEmmaAction.getLineCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getMethodCoverage()) {
-        methodCoverage = emmaAction.getMethodCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getMethodCoverage()) {
+        methodCoverage = cocoEmmaAction.getMethodCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getDecisionCoverage()) {
-        decisionCoverage = emmaAction.getDecisionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getDecisionCoverage()) {
+        decisionCoverage = cocoEmmaAction.getDecisionCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getConditionCoverage()) {
-        conditionCoverage = emmaAction.getConditionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getConditionCoverage()) {
+        conditionCoverage = cocoEmmaAction.getConditionCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getMcDcCoverage()) {
-        mcdcCoverage = emmaAction.getMcDcCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getMcDcCoverage()) {
+        mcdcCoverage = cocoEmmaAction.getMcDcCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
-      if (null != emmaAction.getMccCoverage()) {
-        mccCoverage = emmaAction.getMccCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+      if (null != cocoEmmaAction.getMccCoverage()) {
+        mccCoverage = cocoEmmaAction.getMccCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
       }
     }
     return new EmmaCoverageResultSummary(
@@ -249,59 +249,59 @@ public final class EmmaLoadData {
 
       if (run != null) {
 
-        EmmaBuildAction emmaAction = job.getLastSuccessfulBuild().getAction(EmmaBuildAction.class);
+        CocoEmmaBuildAction cocoEmmaAction = job.getLastSuccessfulBuild().getAction(CocoEmmaBuildAction.class);
 
-        if (null == emmaAction) {
+        if (null == cocoEmmaAction) {
             continue;
         } else {
-          if (null != emmaAction.getBlockCoverage()) {
-            blockCoverage = emmaAction.getBlockCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getBlockCoverage()) {
+            blockCoverage = cocoEmmaAction.getBlockCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigBlockCoverage = new BigDecimal(blockCoverage);
             bigBlockCoverage = bigBlockCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             blockCoverage = bigBlockCoverage.floatValue();
           }
 
-          if (null != emmaAction.getClassCoverage()) {
-            classCoverage = emmaAction.getClassCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getClassCoverage()) {
+            classCoverage = cocoEmmaAction.getClassCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigClassCoverage = new BigDecimal(classCoverage);
             bigClassCoverage = bigClassCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             classCoverage = bigClassCoverage.floatValue();
           }
-          if (null != emmaAction.getLineCoverage()) {
-            lineCoverage = emmaAction.getLineCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getLineCoverage()) {
+            lineCoverage = cocoEmmaAction.getLineCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigLineCoverage = new BigDecimal(lineCoverage);
             bigLineCoverage = bigLineCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             lineCoverage = bigLineCoverage.floatValue();
           }
 
-          if (null != emmaAction.getMethodCoverage()) {
-            methodCoverage = emmaAction.getMethodCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getMethodCoverage()) {
+            methodCoverage = cocoEmmaAction.getMethodCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigMethodCoverage = new BigDecimal(methodCoverage);
             bigMethodCoverage = bigMethodCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             methodCoverage = bigMethodCoverage.floatValue();
           }
           
-          if (null != emmaAction.getDecisionCoverage()) {
-            decisionCoverage = emmaAction.getDecisionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getDecisionCoverage()) {
+            decisionCoverage = cocoEmmaAction.getDecisionCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigCoverage = new BigDecimal(decisionCoverage);
             bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             decisionCoverage = bigCoverage.floatValue();
           }
           
-          if (null != emmaAction.getConditionCoverage()) {
-            conditionCoverage = emmaAction.getConditionCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getConditionCoverage()) {
+            conditionCoverage = cocoEmmaAction.getConditionCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigCoverage = new BigDecimal(conditionCoverage);
             bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             conditionCoverage = bigCoverage.floatValue();
           }
-          if (null != emmaAction.getMcDcCoverage()) {
-            mcdcCoverage = emmaAction.getMcDcCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getMcDcCoverage()) {
+            mcdcCoverage = cocoEmmaAction.getMcDcCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigCoverage = new BigDecimal(mcdcCoverage);
             bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             mcdcCoverage = bigCoverage.floatValue();
           }
-          if (null != emmaAction.getMccCoverage()) {
-            mccCoverage = emmaAction.getMccCoverage().getPercentageFloat(emmaAction.getTestNotMandatory());
+          if (null != cocoEmmaAction.getMccCoverage()) {
+            mccCoverage = cocoEmmaAction.getMccCoverage().getPercentageFloat(cocoEmmaAction.getTestNotMandatory());
             BigDecimal bigCoverage = new BigDecimal(mccCoverage);
             bigCoverage = bigCoverage.setScale(1, BigDecimal.ROUND_HALF_EVEN);
             mccCoverage = bigCoverage.floatValue();

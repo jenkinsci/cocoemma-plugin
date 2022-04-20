@@ -14,10 +14,10 @@ import java.io.IOException;
  * 
  * @author Kohsuke Kawaguchi
  */
-public final class EmmaProjectAction implements Action {
+public final class CocoEmmaProjectAction implements Action {
     public final AbstractProject<?,?> project;
 
-    public EmmaProjectAction(AbstractProject project) {
+    public CocoEmmaProjectAction(AbstractProject project) {
         this.project = project;
     }
 
@@ -34,13 +34,13 @@ public final class EmmaProjectAction implements Action {
     }
 
     /**
-     * Gets the most recent {@link EmmaBuildAction} object.
+     * Gets the most recent {@link CocoEmmaBuildAction} object.
      */
-    public EmmaBuildAction getLastResult() {
+    public CocoEmmaBuildAction getLastResult() {
         for( AbstractBuild<?,?> b = project.getLastBuild(); b!=null; b=b.getPreviousBuild()) {
             if(b.getResult()== Result.FAILURE)
                 continue;
-            EmmaBuildAction r = b.getAction(EmmaBuildAction.class);
+            CocoEmmaBuildAction r = b.getAction(CocoEmmaBuildAction.class);
             if(r!=null)
                 return r;
         }
