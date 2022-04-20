@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  *
  * @author Kohsuke Kawaguchi
  */
-public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> implements HealthReportingAction, StaplerProxy, RunAction2 {
+public final class CocoEmmaBuildAction extends CoverageObject<CocoEmmaBuildAction> implements HealthReportingAction, StaplerProxy, RunAction2 {
 	
     public transient Run<?,?> owner;
 
@@ -48,7 +48,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
      */
     private final EmmaHealthReportThresholds thresholds;
 
-    public EmmaBuildAction(
+    public CocoEmmaBuildAction(
             AbstractBuild<?,?> owner, 
             Rule rule, 
             Ratio classCoverage, 
@@ -255,14 +255,14 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
     }
 
     @Override
-    public EmmaBuildAction getPreviousResult() {
+    public CocoEmmaBuildAction getPreviousResult() {
         return getPreviousResult(owner);
     }
 
     /**
-     * Gets the previous {@link EmmaBuildAction} of the given build.
+     * Gets the previous {@link CocoEmmaBuildAction} of the given build.
      */
-    /*package*/ static EmmaBuildAction getPreviousResult(Run<?,?> start) {
+    /*package*/ static CocoEmmaBuildAction getPreviousResult(Run<?,?> start) {
         Run<?,?> b = start;
         while(true) {
             b = b.getPreviousBuild();
@@ -270,7 +270,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
                 return null;
             if(b.getResult()== Result.FAILURE)
                 continue;
-            EmmaBuildAction r = b.getAction(EmmaBuildAction.class);
+            CocoEmmaBuildAction r = b.getAction(CocoEmmaBuildAction.class);
             if(r!=null)
                 return r;
         }
@@ -283,7 +283,7 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
      * @throws IOException
      *      if failed to parse the file.
      */
-    public static EmmaBuildAction load(AbstractBuild<?,?> owner, Rule rule, EmmaHealthReportThresholds thresholds, FilePath... files) throws IOException {
+    public static CocoEmmaBuildAction load(AbstractBuild<?,?> owner, Rule rule, EmmaHealthReportThresholds thresholds, FilePath... files) throws IOException {
         Ratio ratios[] = null;
         for (FilePath f : files) {
             try {
@@ -299,15 +299,15 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
                 throw new IOException("Failed to parse " + f, e);
             }
         }
-        return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
+        return new CocoEmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
     }
 
-    public static EmmaBuildAction load(AbstractBuild<?,?> owner, Rule rule, EmmaHealthReportThresholds thresholds, InputStream... streams) throws IOException, XmlPullParserException {
+    public static CocoEmmaBuildAction load(AbstractBuild<?,?> owner, Rule rule, EmmaHealthReportThresholds thresholds, InputStream... streams) throws IOException, XmlPullParserException {
         Ratio ratios[] = null;
         for (InputStream in: streams) {
           ratios = loadRatios(in, ratios);
         }
-        return new EmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
+        return new CocoEmmaBuildAction(owner,rule,ratios[0],ratios[1],ratios[2],ratios[3],ratios[4],ratios[5],ratios[6],ratios[7],thresholds);
     }
 
     private static Ratio[] loadRatios(InputStream in, Ratio[] r) throws IOException, XmlPullParserException {
@@ -383,6 +383,6 @@ public final class EmmaBuildAction extends CoverageObject<EmmaBuildAction> imple
 		this.owner = run;
 	}
 
-    private static final Logger logger = Logger.getLogger(EmmaBuildAction.class.getName());
+    private static final Logger logger = Logger.getLogger(CocoEmmaBuildAction.class.getName());
     private static final long serialVersionUID = 1L;
 }

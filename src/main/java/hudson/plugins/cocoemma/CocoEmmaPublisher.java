@@ -4,6 +4,8 @@ import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.init.InitMilestone;
+import hudson.init.Initializer;
 import hudson.maven.ExecutedMojo;
 import hudson.maven.MavenBuild;
 import hudson.maven.MavenModuleSetBuild;
@@ -11,7 +13,9 @@ import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Action;
 import hudson.model.BuildListener;
+import hudson.model.Items;
 import hudson.model.Result;
+import hudson.model.Run;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
@@ -32,7 +36,7 @@ import java.util.Arrays;
  *
  * @author Kohsuke Kawaguchi
  */
-public class EmmaPublisher extends Recorder {
+public class CocoEmmaPublisher extends Recorder {
 
     /**
      * Relative path to the Emma XML file inside the workspace.
@@ -158,7 +162,7 @@ public class EmmaPublisher extends Recorder {
         saveCoverageReports(emmafolder, reports);
         logger.println("Emma: stored " + reports.length + " report files in the build folder: " + emmafolder);
 
-        final EmmaBuildAction action = EmmaBuildAction.load(build, rule, healthReports, reports);
+        final CocoEmmaBuildAction action = CocoEmmaBuildAction.load(build, rule, healthReports, reports);
 
         action.applySettings(advancedSettings);
         
@@ -181,7 +185,7 @@ public class EmmaPublisher extends Recorder {
     }
 
 	private void checkThreshold(AbstractBuild<?, ?> build,
-			final PrintStream logger, EnvVars env, final EmmaBuildAction action) {
+			final PrintStream logger, EnvVars env, final CocoEmmaBuildAction action) {
 		if (useThreshold) {
         	if (isMethodCoverageOk(action) 
         			|| isConditionCoverageOk(action) 
@@ -221,41 +225,41 @@ public class EmmaPublisher extends Recorder {
 		}
 	}
 
-	private boolean isDecisionCoverageOk(final EmmaBuildAction action) {
+	private boolean isDecisionCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getDecisionCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinDecision();
 	}
 
-	private boolean isMcDcCoverageOk(final EmmaBuildAction action) {
+	private boolean isMcDcCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getMcDcCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinMcDc();
 	}
 
-	private boolean isMccCoverageOk(final EmmaBuildAction action) {
+	private boolean isMccCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getMccCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinMcc();
 	}
 
-	private boolean isConditionCoverageOk(final EmmaBuildAction action) {
+	private boolean isConditionCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getConditionCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinCondition();
 	}
 
-	private boolean isLineCoverageOk(final EmmaBuildAction action) {
+	private boolean isLineCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getLineCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinLine();
 	}
 
-	private boolean isBlockCoverageOk(final EmmaBuildAction action) {
+	private boolean isBlockCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getBlockCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinBlock();
 	}
 
-	private boolean isClassCoverageOk(final EmmaBuildAction action) {
+	private boolean isClassCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getClassCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinClass();
 	}
 
-	private boolean isMethodCoverageOk(final EmmaBuildAction action) {
+	private boolean isMethodCoverageOk(final CocoEmmaBuildAction action) {
 		return action.getMethodCoverage().getPercentage(advancedSettings.getTestNotMandatory()) < healthReports.getMinMethod();
 	}
 
     @Override
     public Action getProjectAction(AbstractProject<?, ?> project) {
-        return new EmmaProjectAction(project);
+        return new CocoEmmaProjectAction(project);
     }
 
     @Override
@@ -299,12 +303,19 @@ public class EmmaPublisher extends Recorder {
     public static class DescriptorImpl extends BuildStepDescriptor<Publisher> {
 
         public DescriptorImpl() {
-            super(EmmaPublisher.class);
+            super(CocoEmmaPublisher.class);
+        }
+
+        @Initializer(before = InitMilestone.PLUGINS_STARTED)
+        public static void addAliases() {
+            Items.XSTREAM2.addCompatibilityAlias("hudson.plugins.cocoemma.EmmaPublisher", hudson.plugins.cocoemma.CocoEmmaPublisher.class);
+            Items.XSTREAM2.addCompatibilityAlias("hudson.plugins.cocoemma.EmmaProjectAction", hudson.plugins.cocoemma.CocoEmmaProjectAction.class);
+            Run.XSTREAM2.addCompatibilityAlias("hudson.plugins.cocoemma.EmmaBuildAction", hudson.plugins.cocoemma.CocoEmmaBuildAction.class);
         }
 
         @Override
         public String getDisplayName() {
-            return Messages.EmmaPublisher_DisplayName();
+            return Messages.CocoEmmaPublisher_DisplayName();
         }
 
         @Override
@@ -314,7 +325,7 @@ public class EmmaPublisher extends Recorder {
 
         @Override
         public Publisher newInstance(StaplerRequest req, JSONObject json) throws FormException {
-            EmmaPublisher pub = new EmmaPublisher();
+            CocoEmmaPublisher pub = new CocoEmmaPublisher();
             req.bindParameters(pub, "cocoemma.");
             req.bindParameters(pub.healthReports, "emmaHealthReports.");
             // start ugly hack

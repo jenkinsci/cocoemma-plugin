@@ -6,7 +6,7 @@ import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.model.FreeStyleProject;
 import hudson.model.Job;
-import hudson.plugins.cocoemma.EmmaPublisher;
+import hudson.plugins.cocoemma.CocoEmmaPublisher;
 import hudson.plugins.cocoemma.portlet.bean.EmmaCoverageResultSummary;
 import hudson.tasks.Builder;
 
@@ -50,9 +50,9 @@ public class EmmaLoadDataHudsonTest extends JenkinsRule {
           new CopyResourceToWorkspaceBuilder(getClass().getResourceAsStream("/hudson/plugins/cocoemma/coveragePortlet.xml"),
                         "reports/coverage/coveragePortlet.xml"));
         //Add a cocoemma publisher
-        EmmaPublisher emmaPublisher = new EmmaPublisher();
-        emmaPublisher.includes = "reports/coverage/coveragePortlet.xml";
-        job1.getPublishersList().add(emmaPublisher);
+        CocoEmmaPublisher cocoEmmaPublisher = new CocoEmmaPublisher();
+        cocoEmmaPublisher.includes = "reports/coverage/coveragePortlet.xml";
+        job1.getPublishersList().add(cocoEmmaPublisher);
         //Build it
         job1.scheduleBuild2(0).get();
 
@@ -98,10 +98,10 @@ public class EmmaLoadDataHudsonTest extends JenkinsRule {
                 new CopyResourceToWorkspaceBuilder(getClass().getResourceAsStream("/hudson/plugins/cocoemma/coveragePortlet.xml"),
                         "reports/coverage/coveragePortlet.xml"));
         //Add a cocoemma publisher
-        EmmaPublisher emmaPublisher = new EmmaPublisher();
-        emmaPublisher.includes = "reports/coverage/coveragePortlet.xml";
+        CocoEmmaPublisher cocoEmmaPublisher = new CocoEmmaPublisher();
+        cocoEmmaPublisher.includes = "reports/coverage/coveragePortlet.xml";
         // emmaPublisher.includes = "resources/hudson/plugins/cocoemma/coveragePortlet.xml";
-        job1.getPublishersList().add(emmaPublisher);
+        job1.getPublishersList().add(cocoEmmaPublisher);
         //Build it
         job1.scheduleBuild2(0).get();
 

@@ -16,14 +16,14 @@ import java.io.InputStream;
  * @author Kohsuke Kawaguchi
  */
 public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy*/,CoverageReport,PackageReport> {
-    private final EmmaBuildAction action;
+    private final CocoEmmaBuildAction action;
 
-    private CoverageReport(EmmaBuildAction action) {
+    private CoverageReport(CocoEmmaBuildAction action) {
         this.action = action;
         setName("SquishCocoEmma");
     }
 
-    public CoverageReport(EmmaBuildAction action, InputStream... xmlReports) throws IOException {
+    public CoverageReport(CocoEmmaBuildAction action, InputStream... xmlReports) throws IOException {
         this(action);
         for (InputStream is: xmlReports) {
           try {
@@ -35,7 +35,7 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
         setParent(null);
     }
 
-    public CoverageReport(EmmaBuildAction action, File xmlReport) throws IOException {
+    public CoverageReport(CocoEmmaBuildAction action, File xmlReport) throws IOException {
         this(action);
         try {
             createDigester(!Boolean.getBoolean(this.getClass().getName() + ".UNSAFE")).parse(xmlReport);
@@ -47,7 +47,7 @@ public final class CoverageReport extends AggregatedReport<CoverageReport/*dummy
 
     @Override
     public CoverageReport getPreviousResult() {
-        EmmaBuildAction prev = action.getPreviousResult();
+        CocoEmmaBuildAction prev = action.getPreviousResult();
         if(prev!=null)
             return prev.getResult();
         else
