@@ -33,8 +33,9 @@ import hudson.model.Job;
 import hudson.model.Run;
 import java.math.BigDecimal;
 import java.util.List;
-
-import org.joda.time.LocalDate;
+import java.util.TimeZone;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * Defines common methods that are used for the whole project.
@@ -98,7 +99,7 @@ public final class Utils {
     for (Job job : jobs) {
       Run lastRun = job.getLastBuild();
       if (lastRun != null) {
-        LocalDate date = new LocalDate(lastRun.getTimestamp());
+        LocalDate date = LocalDate.ofEpochDay(lastRun.getTimestamp().toInstant().getEpochSecond());
         if (lastDate == null) {
           lastDate = date;
         }
