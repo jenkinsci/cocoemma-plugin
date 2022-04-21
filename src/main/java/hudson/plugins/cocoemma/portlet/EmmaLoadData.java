@@ -40,9 +40,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * Load data of Emma coverage results used by chart or grid.
@@ -87,7 +89,7 @@ public final class EmmaLoadData {
       Run run = job.getLastBuild();
 
       if (null != run) {
-        LocalDate runDate = new LocalDate(run.getTimestamp());
+        LocalDate runDate = LocalDate.ofEpochDay(run.getTimestamp().toInstant().getEpochSecond());
 
         while (runDate.isAfter(firstDate)) {
 
@@ -99,7 +101,7 @@ public final class EmmaLoadData {
             break;
           }
 
-          runDate = new LocalDate(run.getTimestamp());
+          runDate = LocalDate.ofEpochDay(run.getTimestamp().toInstant().getEpochSecond());
 
         }
       }

@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import static junit.framework.TestCase.assertEquals;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 import org.jvnet.hudson.test.JenkinsRule;
 
 /**
