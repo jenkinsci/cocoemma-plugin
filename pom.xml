@@ -27,6 +27,8 @@
     <developer>
       <id>testcocoon</id>
       <name>Sébastien Fricker</name>
+      <organization>The Qt Company</organization>
+      <organizationUrl>https://www.qt.io/</organizationUrl>
     </developer>
     <developer>
       <id>kohsuke</id>
@@ -48,6 +50,8 @@
     <developer>
       <id>Adakar</id>
       <name>Jakub Topolski</name>
+      <organization>The Qt Company</organization>
+      <organizationUrl>https://www.qt.io/</organizationUrl>
     </developer>
   </developers>
 
