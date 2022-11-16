@@ -3,7 +3,7 @@
   <l:layout>
     <st:include it="${it.project}" page="sidepanel.jelly" />
     <l:main-panel>
-      <h1>${%Squish Coco Coverage Trend}</h1>
+      <h1>${%Coco Coverage Trend}</h1>
 
       <div>
         <a href="../lastBuild/cocoemma"><img src="./graph?width=640&amp;height=480" width="640" height="480" /></a>
