@@ -26,7 +26,7 @@ public class LineCoveragePerSourceFileRule extends Rule {
                 float percentage = sfReport.getLineCoverage().getPercentageFloat(report.getTestNotMandatory());
 
                 if (percentage < minPercentage) {
-                    listener.getLogger().println("Squish Coco Emma: " + sfReport.getDisplayName() + " failed (below " + minPercentage + "%).");
+                    listener.getLogger().println("Coco Emma: " + sfReport.getDisplayName() + " failed (below " + minPercentage + "%).");
                     sfReport.setFailed();
                 }
             }
